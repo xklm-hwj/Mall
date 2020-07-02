@@ -43,6 +43,11 @@ Vue.use(VueRouter)
       path: '/login',
       name: 'login',
       component: () => import('views/login/Login.vue')
+    },
+    {
+      path: '/detail:iid',
+      name: 'detail',
+      component: () => import('views/detail/Detail.vue')
     }
 ]
 
