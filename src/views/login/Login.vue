@@ -51,9 +51,6 @@ export default {
       return this.user.username&&this.user.username.length>6 && !isNaN(this.user.username*1)&&this.user.password
     }
   },
-  created() {
-     this.wHeight = window.screen.height
-  },
   methods: {
     login() {
       if(this.usernameCheck) {
