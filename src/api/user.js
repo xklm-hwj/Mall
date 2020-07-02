@@ -10,7 +10,7 @@ export function login(user) {
   })
 }
 
-export function getUserinfo(user) {
+export function getUserinfo() {
   return userRequest({
     url: '/user/index/userinfo'
   })

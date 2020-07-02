@@ -1,5 +1,6 @@
 import router from './router'
 import store from '../src/store'
+import {getToken} from 'utils/auth'
 
 router.beforeEach((to, from, next) => {
   let path =  0
@@ -18,5 +19,7 @@ router.beforeEach((to, from, next) => {
       break;
   }
   store.commit('user/setPath',path)
+  const token = getToken()
+  if(token != undefined) store.dispatch('user/getUserinfo')
   next()
 })

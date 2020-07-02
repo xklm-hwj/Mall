@@ -1,13 +1,15 @@
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 
-const tokenKey = 'jwt-token'
+const TokenKey = 'jwt_token'
 
 export function getToken() {
-  Cookie.get(tokenKey)
+  return Cookies.get(TokenKey)
 }
+
 export function setToken(token) {
-  Cookie.set(tokenKey,token)
+  return Cookies.set(TokenKey, token)
 }
+
 export function removeToken() {
-  Cookie.remove(tokenKey)
+  return Cookies.remove(TokenKey)
 }

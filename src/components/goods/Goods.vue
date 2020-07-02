@@ -1,5 +1,5 @@
 <template>
-  <div class="goods" v-show="show">
+  <div class="goods" v-show="show" @click="toDetail">
     <div v-for="item of goods" :key="item.acm" class="good">
         <img :src="item.img ? item.img:item.show.img" :alt="item.title" @load="onload">
         <div class="title">{{item.title}}</div>
@@ -44,6 +44,9 @@ export default {
   methods: {
     onload() {
       this.debounce()
+    },
+    toDetail() {
+      this.$router.push('detail')
     }
   }
 }
