@@ -2,7 +2,7 @@
   <div>
     <navbar>
       <div slot="center" class="nav-center">
-        <div class="nav-item" v-for="item of ['商品','参数','评论','推荐']" :key="item">{{item}}</div>
+        <div class="nav-item" :class="{'activeNav':activeNav==index}" v-for="(item,index) of ['商品','参数','评论','推荐']" :key="item" @click="navClick(index)">{{item}}</div>
       </div>
     </navbar>
   </div>
@@ -10,19 +10,31 @@
 
 <script>
 import Navbar from 'components/navbar/Navbar'
-
+import {getDetail} from 'api/detail'
 export default {
   name: 'Detail',
   data() {
     return {
-      iid: null
+      iid: null,
+      activeNav: 0
     }
   },
   components: {
     Navbar
   },
-  activated() {
+  created() {
     this.iid = this.$route.params.iid
+    this._getDetail()
+  },
+  methods: {
+    navClick(index) {
+      this.activeNav = index
+    },
+    _getDetail() {
+      getDetail(this.iid).then(res => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -39,5 +51,8 @@ export default {
       height: 100%;
       line-height: 40px;
     }
+ }
+ .activeNav {
+   color: red;
  }
 </style>

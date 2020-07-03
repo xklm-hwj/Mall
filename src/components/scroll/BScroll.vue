@@ -1,9 +1,7 @@
 <template>
-  <div class="wrapper" ref="wrapper">
-    <div class="">
+  <div ref="wrapper">
       <slot />
-    </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -20,6 +18,12 @@ export default {
         }
       }
     },
+    data: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
   data() {
     return {
@@ -29,10 +33,13 @@ export default {
   mounted() {
     setTimeout(() => {
       this.scrollInit()
-    }, 20);
+      console.log('createScroll:',this.scroll)
+      this.scroll.refresh()
+    }, 200);
   },
   methods: {
     scrollInit() {
+      if (!this.$refs.wrapper) return
       this.scroll = new BScroll(this.$refs.wrapper,{
         click: true,
         probeType: this.bs.probeType,
@@ -46,15 +53,24 @@ export default {
         this.$emit('pullingUpClick')
       })
       this.$bus.$on('scrollRefresh',() => {
-        this.scroll.refresh()
+        this.refresh()
         this.finishPulUp()
       })
     },
     finishPulUp() {
-      this.scroll.finishPullUp()
+      this.scroll && this.scroll.finishPullUp()
     },
     scrollTo(y,timer=1000) {
       this.scroll.scrollTo(0,y,timer)
+    },
+    refresh() {
+      console.log("scrollRefresh")
+       this.scroll && this.scroll.refresh && this.scroll.refresh()
+    }
+  },
+  watch: {
+    data() {
+      setTimeout(this.refresh, 20)
     }
   }
 }

@@ -2,15 +2,18 @@
   <div class="home">
     <search />
     <tab-control :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
-    <b-scroll class="content" ref="scroll"
+    <b-scroll class="content"  ref="scroll"
       @pullingUpClick="pullingUpClick"
       @scroll="scroll"
-      :bs="bs">
-      <h-swiper :banner="banner" />
-      <h-recommend :recommend="recommend" />
-      <h-feature />
-      <tab-control :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
-      <goods :goods="goods[sendType].list" />
+      :bs="bs"
+      :data="[goods[sendType].list]">
+      <div >
+        <h-swiper :banner="banner" />
+        <h-recommend :recommend="recommend" />
+        <h-feature />
+        <tab-control :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+        <goods :goods="goods[sendType].list" />
+      </div>
     </b-scroll>
     <call-top v-show="callTopIsShow" @click.native="callTop"/>
   </div>
@@ -82,7 +85,10 @@ export default {
     })
   },
   activated() {
-    this.$bus.$emit('scrollRefresh')
+    setTimeout(() => {
+      console.log(1111)
+      this.$refs.scroll.refresh()
+    }, 200);
   },
   methods: {
     callTop() {

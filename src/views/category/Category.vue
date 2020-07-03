@@ -2,10 +2,10 @@
   <div>
     <search />
     <div class="category">
-      <BScroll class="categoryList">
+      <BScroll class="categoryList" :data='[categoryList]'>
         <category-list @checkType="checkType" class="category-left" :categoryList="categoryList" />
       </BScroll>
-      <BScroll class="supcategory" @scroll="scroll" ref="scroll" :class="{'show':goodsIsShow}">
+      <BScroll class="supcategory" @scroll="scroll" :data='[subcategory,categoryDetailList[categoryDetail]]' ref="scroll" :class="{'show':goodsIsShow}">
         <subcategory-list :subcategoryList="subcategory" class="category-right" />
         <tab-control @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
         <goods  :goods="categoryDetailList[categoryDetail]" />
