@@ -1,7 +1,7 @@
 <template>
  <div id="profile">
   <navbar>
-    <div slot="left">&#xe609;</div>
+    <div slot="left" @click="callHome">&#xe609;</div>
     <div slot="center">个人中心</div>
   </navbar>
   <user-info :userinfo="userinfo" class="userinfo" />
@@ -51,6 +51,11 @@ export default {
           title: '全部订单'
         }
       ]
+    }
+  },
+  methods: {
+    callHome(){
+      this.$router.push('/body')
     }
   }
 }

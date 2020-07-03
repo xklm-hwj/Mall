@@ -134,7 +134,5 @@ export default {
   }
   .swiper {
     width: 90%;
-    height: 180px;
-    border-radius: 10px;
   }
 </style>

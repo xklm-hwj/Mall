@@ -1,7 +1,7 @@
 <template>
   <div class="cart">
     <Navbar>
-      <div slot="left">&#xe60a;</div>
+      <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot="center">购物车</div>
     </Navbar>
     <placeholder-page />
@@ -19,6 +19,11 @@ export default {
     Navbar,
     PlaceholderPage,
     Gap
+  },
+  methods: {
+    callBack() {
+      this.$router.back(-1)
+    }
   }
 }
 </script>

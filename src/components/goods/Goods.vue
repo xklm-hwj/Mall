@@ -61,6 +61,8 @@ export default {
     overflow: hidden;
     .good {
       width: 48%;
+      box-sizing: border-box;
+      padding: 10px 5px;
       img {
         width: 100%;
         border-radius: 5px;

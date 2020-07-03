@@ -23,4 +23,7 @@ export default {
     font: 12px Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif;
     color: #666;
   }
+  table,tr,td {
+    border: 0;
+  }
 </style>

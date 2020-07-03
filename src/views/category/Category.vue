@@ -63,6 +63,7 @@ export default {
     this._getCategoryDetail('sell')
   },
   activated() {
+    console.log(222)
     this.$bus.$emit('scrollRefresh')
   },
   methods: {

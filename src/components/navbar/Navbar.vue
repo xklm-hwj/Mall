@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <div class="left iconfont" @click="toNewPage"><slot name="left">&#xe60a;</slot></div>
+    <div class="left iconfont"><slot name="left">&#xe60a;</slot></div>
     <div class="center iconfont"><slot name="center"/></div>
     <div class="right iconfont"><slot name="right">&#xe701;</slot></div>
   </div>
@@ -19,11 +19,6 @@ export default {
     return {
       isRouterAlive: true
     }
-  },
-  methods: {
-    toNewPage() {
-      this.$router.push(this.url)
-    },
   }
 }
 </script>

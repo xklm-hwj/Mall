@@ -30,7 +30,6 @@ export default {
   .my-swipe {
     width: 100%;
     margin: 0 auto;
-    overflow: hidden;
     .swipe-img {
       width: 100%;
     }

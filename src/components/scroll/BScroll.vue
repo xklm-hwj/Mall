@@ -33,31 +33,33 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.scrollInit()
+    // setTimeout(() => {
+      this.$nextTick(() => {
+        this.scrollInit()
+      })
       console.log('createScroll:',this.scroll)
-      this.scroll.refresh()
-    }, 200);
+      // this.scroll.refresh()
+      // }, 200);
   },
   methods: {
     scrollInit() {
       if (!this.$refs.wrapper) return
-      this.scroll = new BScroll(this.$refs.wrapper,{
-        click: true,
-        probeType: this.bs.probeType,
-        pullUpLoad: this.bs.pullUpLoad
-      })
-      this.scroll.on("scroll",(position) => {
-        this.$emit('scroll',position)
-      })
-      this.scroll.on('pullingUp',() => {
-        console.log("加载更多")
-        this.$emit('pullingUpClick')
-      })
-      this.$bus.$on('scrollRefresh',() => {
-        this.refresh()
-        this.finishPulUp()
-      })
+        this.scroll = new BScroll(this.$refs.wrapper,{
+          click: true,
+          probeType: this.bs.probeType,
+          pullUpLoad: this.bs.pullUpLoad
+        })
+        this.scroll.on("scroll",(position) => {
+          this.$emit('scroll',position)
+        })
+        this.scroll.on('pullingUp',() => {
+          console.log("加载更多")
+          this.$emit('pullingUpClick')
+        })
+        this.$bus.$on('scrollRefresh',() => {
+          this.refresh()
+          this.finishPulUp()
+        })
     },
     finishPulUp() {
       this.scroll && this.scroll.finishPullUp()

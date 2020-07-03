@@ -14,6 +14,10 @@ Vue.use(VueRouter)
       children:[
         {
           path: '/',
+          redirect: '/body/home'
+        },
+        {
+          path: '/body/home',
           name: 'home',
           component: () => import('views/home/Home.vue')
         },
