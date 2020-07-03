@@ -43,5 +43,8 @@ export default {
 </script>
 
 <style>
-
+  .tabbar {
+    /* position: relative; */
+    z-index: 1000;
+  }
 </style>

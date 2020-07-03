@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 // import('./routerBeforeEach')
 import './routerBeforeEach'
-
+JSON.parse(localStorage.getItem('cartList'))?'':localStorage.getItem('cartList')
 Vue.prototype.$bus = new Vue
 
 Vue.config.productionTip = false

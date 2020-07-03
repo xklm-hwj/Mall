@@ -26,6 +26,8 @@ export default {
 <style lang="scss" scoped>
   .nav {
     display: flex;
+    // position: fixed;
+    // top: 0;
     width: 100%;
     height: 40px;
     justify-content: space-between;
@@ -37,6 +39,7 @@ export default {
     background-color: #fff;
     border-bottom: 1px solid #eee;
     overflow: hidden;
+    box-sizing: border-box;
     .left,.right {
       width: 15%
     }

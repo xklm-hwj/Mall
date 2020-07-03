@@ -10,7 +10,7 @@
     <detail-info :goods="goods"/>
     <shop-info :shop="shop"/>
     <good-info :detailInfo="detailInfo"/>
-    <bottom-bar />
+    <bottom-bar @addCart="addCart"/>
 
     <div style="margin-top:100px;box-sizing: border-box;height:200px;font-size:30px;text-align:center;width:100%;line-height: 100px;border: 10px dotted red">
       正在开发中...2020.7.3
@@ -27,6 +27,7 @@ import ShopInfo from './detailChild/ShopInfo'
 import GoodInfo from './detailChild/GoodInfo'
 import BottomBar from './detailChild/BottomBar'
 import {getDetail,Goods,Shop} from 'api/detail'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Detail',
   data() {
@@ -36,7 +37,7 @@ export default {
       banner:[],
       goods:{},
       shop:{},
-      detailInfo:{}
+      detailInfo:{},
     }
   },
   components: {
@@ -48,9 +49,14 @@ export default {
     DetailInfo,
     ShopInfo
   },
-  created() {
+  activated() {
     this.iid = this.$route.params.iid
     this._getDetail()
+  },
+  computed: {
+    ...mapGetters([
+      'cartList'
+    ])
   },
   methods: {
     navClick(index) {
@@ -63,6 +69,7 @@ export default {
         this.banner = data.itemInfo.topImages
         // 获取商品信息
         this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
+        this.goods.count = 0
         // 获取店铺信息
         this.shop = new Shop(data.shopInfo)
         // 获取商品信息
@@ -72,6 +79,35 @@ export default {
     },
     callBack() {
       this.$router.back(-1)
+    },
+    addCart() {
+      const list = this.cartList
+      console.log(this.banner[0])
+      const img = this.banner[0]
+      let good = {
+        iid: this.iid,
+        title: this.goods.title,
+        desc: this.goods.desc,
+        price: this.goods.newPrice,
+        img,
+        count: 1
+      }
+      let has = false
+      if(list.length == 0) {
+        list.push(good)
+        has = true
+      }else {
+        for(let item of list) {
+          if(item.iid == good.iid){
+            has = true
+            item.count++
+            break
+          }
+        }
+      }
+      if(!has) list.push(good)
+      this.$store.commit('cart/setCartList',list)
+      console.log(this.cartList)
     }
   }
 }
