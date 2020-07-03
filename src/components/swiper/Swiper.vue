@@ -1,7 +1,7 @@
 <template>
   <van-swipe class="my-swipe" :autoplay="3000" loop indicator-color="white">
-    <van-swipe-item v-for="(item) of banner" :key="item.acm">
-      <img class="swipe-img" :src="item.image" alt="">
+    <van-swipe-item v-for="(item) of banner" :key="item.acm||item">
+      <img class="swipe-img" :src="item.image||item" alt="">
     </van-swipe-item>
   </van-swipe>
 </template>
@@ -28,8 +28,9 @@ export default {
 
 <style lang='scss'>
   .my-swipe {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
+    overflow: hidden;
     .swipe-img {
       width: 100%;
     }

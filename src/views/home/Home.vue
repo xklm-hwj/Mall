@@ -7,13 +7,11 @@
       @scroll="scroll"
       :bs="bs"
       :data="[goods[sendType].list]">
-      <div >
-        <h-swiper :banner="banner" />
+        <h-swiper :banner="banner" class="swiper"/>
         <h-recommend :recommend="recommend" />
         <h-feature />
         <tab-control :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
         <goods :goods="goods[sendType].list" />
-      </div>
     </b-scroll>
     <call-top v-show="callTopIsShow" @click.native="callTop"/>
   </div>
@@ -133,5 +131,10 @@ export default {
     top: 54px;
     bottom: 50px;
     overflow: hidden;
+  }
+  .swiper {
+    width: 90%;
+    height: 180px;
+    border-radius: 10px;
   }
 </style>
