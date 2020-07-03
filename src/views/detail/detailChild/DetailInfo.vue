@@ -88,9 +88,9 @@ export default {
       // vertical-align: middle;
       div {
         // width: 33%;
-        height: 60px;
-        line-height: 60px;
-        
+        height: 30px;
+        line-height: 30px;
+        padding: 2px;
         img {
           display: inline-block;
           position: relative;

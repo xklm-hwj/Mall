@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar>
+    <navbar class="navbar">
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot="center" class="nav-center">
         <div class="nav-item" :class="{'activeNav':activeNav==index}" v-for="(item,index) of ['商品','参数','评论','推荐']" :key="item" @click="navClick(index)">{{item}}</div>
@@ -9,7 +9,12 @@
     <swiper :banner="banner" class="swiper"/>
     <detail-info :goods="goods"/>
     <shop-info :shop="shop"/>
-    <detail-info />
+    <good-info :detailInfo="detailInfo"/>
+    <bottom-bar />
+
+    <div style="margin-top:100px;box-sizing: border-box;height:200px;font-size:30px;text-align:center;width:100%;line-height: 100px;border: 10px dotted red">
+      正在开发中...2020.7.3
+    </div>
   </div>
 </template>
 
@@ -17,9 +22,10 @@
 import Navbar from 'components/navbar/Navbar'
 import BScroll from 'components/scroll/BScroll'
 import Swiper from 'components/swiper/Swiper'
-Shop
 import DetailInfo from './detailChild/DetailInfo'
 import ShopInfo from './detailChild/ShopInfo'
+import GoodInfo from './detailChild/GoodInfo'
+import BottomBar from './detailChild/BottomBar'
 import {getDetail,Goods,Shop} from 'api/detail'
 export default {
   name: 'Detail',
@@ -37,6 +43,8 @@ export default {
     Navbar,
     BScroll,
     Swiper,
+    GoodInfo,
+    BottomBar,
     DetailInfo,
     ShopInfo
   },
@@ -70,6 +78,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .navbar {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
  .nav-center {
     box-sizing: border-box;
     padding: 0 30px;
@@ -86,6 +99,6 @@ export default {
    color: red;
  }
  .swiper {
-   height: 250px;
+   height: 350px;
  }
 </style>
