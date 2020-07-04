@@ -10,7 +10,7 @@ export default {
   name: 'App'
 }
 </script>
-<style lang="scss">
+<style>
   @import url('./assets/iconfont/iconfont.css');
   *{
     margin: 0;
@@ -18,6 +18,7 @@ export default {
   }
   input {
     outline: none;
+    border: 0;
   }
   body,a {
     font: 12px Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif;
@@ -26,4 +27,8 @@ export default {
   table,tr,td {
     border: 0;
   }
+  input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px #fff inset;
+    -webkit-text-fill-color: #333;
+}
 </style>

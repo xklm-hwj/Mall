@@ -11,7 +11,7 @@
           <img v-show="hasAvatar" :src="user.avatar" alt="头像">
           <img v-show="!hasAvatar" src="https://img11.360buyimg.com/jdphoto/s120x120_jfs/t21160/90/706848746/2813/d1060df5/5b163ef9N4a3d7aa6.png" alt="头像">
         </div>
-        <div v-if="user.username">
+        <div v-if="isLogin">
           <div class="name">{{user.name}}</div>
           <div>{{user.username}}</div>
         </div>
@@ -48,17 +48,22 @@
         <div class="icon">了解我们</div>
       </div>
     </div>
+    <div class="callLogin" @click="callLogin">
+      退出登录
+    </div>
  </div>
 </template>
 
 <script>
 import Navbar from 'components/navbar/Navbar'
+import {removeToken,getToken} from 'utils/auth'
 export default {
   name: 'UserSetting',
   components: {Navbar},
   data() {
     return {
       user: {},
+      isLogin: getToken()
     }
   },
   computed: {
@@ -72,20 +77,34 @@ export default {
     },
     back() {
       this.$router.back(-1);
+    },
+    callLogin() {
+      removeToken()
+      console.log()
+      this.$store.commit('user/setUserinfo',{})
+      this.user = {}
+      this.$router.push('/login')
     }
   },
   created() {
-    
-    console.log(this.user)
+    // this.user = this.$store.getters.userinfo
+    // console.log(this.user)
   },
   activated() {
-    this.user = JSON.parse(this.$route.query.user)
+    if(this.isLogin){
+      setTimeout(() => {
+        this.$store.dispatch('user/getUserinfo').then(res => {
+          this.user = res
+        })
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .current {
+    position: relative;
     color: #999;
     background-color: #f7f7f7;
     height: 100vh;
@@ -165,5 +184,13 @@ export default {
       }
     }
   }
-  
+  .callLogin {
+    font-size: 15px;
+    text-align: center;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    
+  }
 </style>

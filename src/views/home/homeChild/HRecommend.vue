@@ -1,8 +1,10 @@
 <template>
   <div class="recommend">
     <div v-for="item of recommend" :key="item.acm" class="rem-item">
-      <img :src="item.image" alt="推荐" >
-      <div>{{item.title}} </div>
+      <a :href="item.link">
+        <img :src="item.image" alt="推荐" >
+        <div>{{item.title}} </div>
+      </a>
     </div>
   </div>
 </template>

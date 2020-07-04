@@ -10,11 +10,11 @@
     <detail-info :goods="goods"/>
     <shop-info :shop="shop"/>
     <good-info :detailInfo="detailInfo"/>
-    <bottom-bar @addCart="addCart"/>
+    <bottom-bar @addCart="addCart" @toBuy="toBuy" :cartList="cartList"/>
 
-    <div style="margin-top:100px;box-sizing: border-box;height:200px;font-size:30px;text-align:center;width:100%;line-height: 100px;border: 10px dotted red">
+    <!-- <div style="margin-top:100px;box-sizing: border-box;height:200px;font-size:30px;text-align:center;width:100%;line-height: 100px;border: 10px dotted red">
       正在开发中...2020.7.3
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -28,6 +28,10 @@ import GoodInfo from './detailChild/GoodInfo'
 import BottomBar from './detailChild/BottomBar'
 import {getDetail,Goods,Shop} from 'api/detail'
 import {mapGetters} from 'vuex'
+import Vue from 'vue';
+import { Toast } from 'vant';
+import {getToken} from 'utils/auth'
+Vue.use(Toast);
 export default {
   name: 'Detail',
   data() {
@@ -38,6 +42,7 @@ export default {
       goods:{},
       shop:{},
       detailInfo:{},
+      isLogin: getToken()
     }
   },
   components: {
@@ -80,6 +85,16 @@ export default {
     callBack() {
       this.$router.back(-1)
     },
+    toBuy() {
+      if(!this.isLogin){
+        Toast.fail('请先登录')
+        this.timer = setTimeout(() => {
+          this.$router.push("/login")
+        },1000)
+      }else {
+        Toast.fail('条件不允许')
+      }
+    },
     addCart() {
       const list = this.cartList
       console.log(this.banner[0])
@@ -89,6 +104,7 @@ export default {
         title: this.goods.title,
         desc: this.goods.desc,
         price: this.goods.newPrice,
+        active: true,
         img,
         count: 1
       }
@@ -107,7 +123,7 @@ export default {
       }
       if(!has) list.push(good)
       this.$store.commit('cart/setCartList',list)
-      console.log(this.cartList)
+      Toast.success('加入购物车成功')
     }
   }
 }

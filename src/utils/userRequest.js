@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import {getToken} from 'utils/auth'
+import {getToken,removeToken} from 'utils/auth'
 
 const instance = Axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -8,6 +8,9 @@ const instance = Axios.create({
 
 instance.interceptors.response.use(response => {
   return response.data
+},error => {
+  console.log(error)
+  removeToken()
 })
 
 instance.interceptors.request.use(config => {

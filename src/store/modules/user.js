@@ -19,12 +19,17 @@ const actions = {
       login(user).then(res => {
         setToken(res.token)
         resolve(res.success)
+      },error => {
+        console.log(error)
       })
     })
   },
   getUserinfo({commit}){
-    getUserinfo().then(res => {
-      commit('setUserinfo',res.userinfo)
+    return new Promise((resolve,reject) => {
+      getUserinfo().then(res => {
+        resolve(res.userinfo)
+        commit('setUserinfo',res.userinfo)
+      })
     })
   }
 }

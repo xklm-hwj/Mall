@@ -1,7 +1,7 @@
 <template>
   <div class="goods" v-show="show" >
-    <div v-for="item of goods" :key="item.acm" class="good" @click="toDetail(item.iid)">
-        <img :src="item.img ? item.img:item.show.img" :alt="item.title" @load="onload">
+    <div v-for="item of goods" :key="item.acm" class="good" @click="toDetail(item.iid,item.item_id)">
+        <img v-lazy="item.show?item.show.img:item.img?item.img:item.image" :alt="item.title" @load="onload">
         <div class="title">{{item.title}}</div>
         <div class="detail" v-show="item.price">
           <span class="price">{{item.price | setPrice}}</span>
@@ -31,7 +31,7 @@ export default {
       show: false
     }
   },
-  created() {
+  async created() {
     this.$bus.$on('scrollRefresh',() => {
         this.show = true
     })
@@ -45,8 +45,8 @@ export default {
     onload() {
       this.debounce()
     },
-    toDetail(iid) {
-      this.$router.push('/detail'+iid)
+    toDetail(iid,item_id) {
+      iid&&this.$router.push('/detail'+iid)
     }
   }
 }

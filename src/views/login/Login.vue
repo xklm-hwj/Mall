@@ -1,9 +1,12 @@
 <template>
   <div class="login" :style="style">
-    <div class="banner">
-      <!-- <img src="~assets/img/profile/banner1.png" alt=""> -->
+    <!-- <div class="banner">
       <div class="logo-img"></div>
-    </div>
+    </div> -->
+    <navbar>
+      <div slot="left" @click="callBack">&#xe60a;</div>
+      <div slot='center'>用户登录</div>
+    </navbar>
     <form class="form">
       <div class="input">
         <input type="text" v-model="user.username" placeholder="手机号/用户名/邮箱" @input="inputClick">
@@ -13,7 +16,7 @@
         <input :type="PType" v-model="user.password" placeholder="请输入登录密码">
         <i class="iconfont icon" v-show="passwordType" @click="passwordType = !passwordType">&#xe704;</i>
         <i class="iconfont icon" v-show="!passwordType" @click="passwordType = !passwordType">&#xe705;</i>
-        <i class="iconfont icon ps-icon" v-show="user.password" @click="this.user.password = ''">&#xe603;</i>
+        <i class="iconfont icon ps-icon" v-show="user.password" @click="user.password = ''">&#xe603;</i>
       </div>
       <div class="sign">
         <span>短信验证码登录</span>
@@ -27,6 +30,8 @@
 </template>
 
 <script>
+import Navbar from 'components/navbar/Navbar'
+import { Toast } from 'vant';
 export default {
   name: 'Login',
   data() {
@@ -37,6 +42,9 @@ export default {
       hidden: true,
       passwordType: true
     }
+  },
+  components: {
+    Navbar
   },
   computed: {
     style() {
@@ -56,9 +64,12 @@ export default {
       if(this.usernameCheck) {
         this.$store.dispatch('user/login', this.user).then(response => {
           console.log(response)
+          Toast.success('登录成功')
           setTimeout(() => {
-            this.$router.push("/body/profile")
-          }, 500);
+            this.$store.dispatch('user/getUserinfo').then(res => {
+              this.$router.back(-1)
+            })
+          }, 1000);
         })
       }
     },
@@ -69,6 +80,9 @@ export default {
       if(user.name.length<6) {
 
       }
+    },
+    callBack() {
+      this.$router.back(-1)
     }
   }
 }
@@ -79,28 +93,32 @@ export default {
     background-color: #fff;
     position: relative;
     z-index: 100;
-    .banner {
-      width: 30%;
-      margin: 0 auto;
-      padding: 10px 0;
-      .logo-img {
-        background: no-repeat url("../../assets/img/profile/banner1.png") 0/100%;
-        height: 200px;
-      }
-    }
+    box-sizing: border-box;
+    
+    // .banner {
+    //   width: 30%;
+    //   margin: 0 auto;
+    //   padding: 10px 0;
+    //   .logo-img {
+    //     background: no-repeat url("../../assets/img/profile/banner1.png") 0/100%;
+    //     height: 200px;
+    //   }
+    // }
     .form {
+      padding-top: 100px;
       width: 90%;
       margin: 0 auto;
       .input{
         text-align: center;
-        border-bottom: 1px solid #0da5e6;
+        border-bottom: 1px solid red;
         margin: 30px 0;
         position: relative;
         input {
-          font-size: 15px;
+          font-size: 18px;
           width: 95%;;
           border: 0;
           margin: 5px 0;
+          background-color: #fff !important;
         }
         .icon {
           position: absolute;
@@ -113,10 +131,12 @@ export default {
           transform: translate(-30px,-50%);
           -webkit-transform: translate(-30px,-50%);
         }
-        input::placeholder {
-          font-size: 13px;
-          color: #173535;
-        }
+        // input::placeholder {
+        //   font-size: 13px;
+        //   color: #351717;
+        //   background-color: rgb(124, 37, 37)!important;
+        // }
+       
       }
       .sign {
         display: flex;
@@ -125,18 +145,19 @@ export default {
       }
       .button {
         width: 100%;
-        height: 30px;
+        height: 40px;
         border-radius: 30px;
-        background-color: #0da5e6;
+        background-color: red;
         text-align: center;
-        line-height: 30px;
-        font-size: 14px;
+        line-height: 40px;
+        font-size: 18px;
         color: #fff;
         margin: 20px  0;
       }
     }
   }
+ 
   .cleck-fail {
-    background-color: #a4d4e9 !important;
+    background-color: red !important;
   }
 </style>

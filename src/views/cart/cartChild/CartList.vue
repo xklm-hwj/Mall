@@ -1,31 +1,41 @@
 <template>
   <div class="cart-list">
-    <div v-for="item of cartList" :key="item.iid" class="good">
-      <div class="img">
+    <div v-for="(item,index) of cartList" :key="item.iid" class="good">
+      <div class="img" @click="toDetail(item.iid)">
         <div class="tick">
-          <img class="active" src="~assets/img/cart/tick.svg">
+          <img :class="{active:item.active}" @click="changeActive(item)" src="~assets/img/cart/tick.svg">
         </div>
         <img :src="item.img" alt="">
       </div>
       <div class="detail">
         <div class="title">{{item.title}}</div>
         <div class="desc">简介：{{item.desc}}</div>
-        <div class="price">
-          <span class="money">{{item.price}}</span>
-          <span>x {{item.count}}</span>
+        <div class="price-line">
+          <div class="price">{{item.price}}</div>
+          <div class="count">
+            <span class="minus" @click="minusCount(index)" :class="{'disable':item.count=='0'}"></span>
+            <div class="input-wrap">
+              <input v-model="item.count" class="num" type="tel" @blur="click(index)"/>
+            </div>
+            <span class="plus" @click="plusCount(index)" ></span>
+          </div>
         </div>
+         <div class="delect" @click="delect(index)">
+            移出购物车
+          </div>
       </div>
-    </div>
-
-    <div style="margin-top:100px;box-sizing: border-box;height:200px;font-size:30px;text-align:center;width:100%;line-height: 100px;border: 10px dotted red">
-      正在开发中...2020.7.4
     </div>
   </div>
 </template>
 
 <script>
+import {getToken} from 'utils/auth'
+
 export default {
   name: 'CartList',
+  data() {
+    return {isLogin: getToken}
+  },
   props: {
     cartList: {
       type: Array,
@@ -33,23 +43,59 @@ export default {
         return []
       }
     }
+  },
+  computed: {
+    cart() {
+      return JSON.stringify(this.cartList)
+    }
+  },
+  watch: {
+    cart() {
+      console.log("chang  cratList")
+      this.$store.commit('cart/setCartList',this.cartList)
+    }
+  },
+  methods: {
+    click(index) {
+      let count = this.cartList[index].count
+      count = count.replace(/[^0-9]/ig,"");
+      this.cartList[index].count = count
+    },
+    minusCount(index) {
+      if(this.cartList[index].count)this.cartList[index].count--
+    },
+    plusCount(index) {
+      this.cartList[index].count++
+    },
+    changeActive(item){
+      item.active = !item.active
+    },
+    delect(index) {
+      this.cartList.splice(index,1)
+      index==0&&this.$store.commit('cart/setCartList',this.cartList)
+    },
+    toDetail(iid) {
+      this.$router.push('/detail'+iid)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .cart-list {
-    margin-top: 40px;
+    padding: 1px 0;
     .good {
       display: flex;
-      padding: 10px 0;
-      margin: 0 5px;
-      height: 110px;
+      padding: 5px 5px;
+      margin: 15px 15px;
+      height: 120px;
       overflow: hidden;
+      background-color: #fff;
+      border-radius: 10px;
       border-bottom: 1px solid rgb(214, 214, 214);;
       .img {
         display: flex;
-        width: 30%;
+        width: 35%;
           .tick {
           flex: 1;
           display: flex;
@@ -58,13 +104,13 @@ export default {
           img{
             width: 15px;
             height: 15px;
-            border: 2px solid #999;
+            border: 1px solid rgb(194, 193, 193);
             padding: 1px;
             border-radius: 50%;
           }
           .active{
-            background-color: #ff5777;
-            border: 2px solid #ff5777;
+            background-color: #f2270c;
+            border: 2px solid #f2270c;
           }
         }
         img {
@@ -73,6 +119,7 @@ export default {
         }
       }
       .detail {
+        position: relative;
         flex: 1;
         overflow: hidden;
         margin: 0 10px;
@@ -95,16 +142,48 @@ export default {
           line-clamp: 2;
           -webkit-box-orient: vertical;
         }
-        .price {
+        .price-line {
           display: flex;
           justify-content: space-between;
           padding: 5px;
           vertical-align: middle;
           font-size: 15px;
-          .money {
+          .price {
             color: red;
-            
           }
+          .count {
+            display: flex;
+            align-items: center;
+            .input-wrap {
+              display: inline-block;
+              height: 15px;
+              .num {
+                height: 15px;
+                vertical-align: top;
+                text-align: center;
+                font-size: 12px;
+                width: 35px;
+              }
+            }
+            .minus {
+              width: 15px;
+              height: 15px;
+              background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeAgMAAABGXkYxAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURUdwTCQkJCYmJrxUw5UAAAACdFJOUwB9WCfAuQAAAB1JREFUGNNjYBgIwLZq1aoJIAYXkLEAhQGXGggAAJHVCnlOtZ+AAAAAAElFTkSuQmCC) no-repeat 50%/100%;
+            }
+            .plus {
+              width: 15px;
+              height: 15px;
+              background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeAgMAAABGXkYxAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURSUlJUdwTCQkJK/0gvAAAAADdFJOU/8AfWpa/bIAAAArSURBVBjTYwiFgAAG8hkRqlBGACvxjAYGBiYwgwEIUBlwKZIMRDiDfO8AAJNQRyMPYU0tAAAAAElFTkSuQmCC) no-repeat 50%/100%;
+            }
+            .disable {
+              background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeAgMAAABGXkYxAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURUdwTPLy8vLy8pPT2yEAAAACdFJOUwB9WCfAuQAAAB1JREFUGNNjYBgIwLZq1aoJIAYXkLEAhQGXGggAAJHVCnlOtZ+AAAAAAElFTkSuQmCC) no-repeat 50%/100%;
+            }
+          }
+        }
+        .delect {
+          position: absolute;
+          bottom: 2px;
+          right: 10px;
         }
       }
     }

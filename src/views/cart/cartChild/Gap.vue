@@ -14,7 +14,7 @@ export default {
 
 <style lang="scss" scoped>
 .gap {
-  margin-top: 60px;
+  margin-top: 20px;
   text-align: center;
   position: relative;
   .title {

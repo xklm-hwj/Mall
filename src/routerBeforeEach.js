@@ -20,6 +20,10 @@ router.beforeEach((to, from, next) => {
   }
   store.commit('user/setPath',path)
   const token = getToken()
-  if(token != undefined) store.dispatch('user/getUserinfo')
+  console.log(token)
+  if(token) {
+    console.log(111)
+    store.dispatch('user/getUserinfo')
+  }
   next()
 })
