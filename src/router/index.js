@@ -49,6 +49,12 @@ Vue.use(VueRouter)
       component: () => import('views/login/Login.vue')
     },
     {
+      path: '/signin',
+      name: 'signin',
+      component: () => import('views/login/Signin.vue')
+    }
+    ,
+    {
       path: '/detail:iid',
       name: 'detail',
       component: () => import('views/detail/Detail.vue')

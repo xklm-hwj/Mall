@@ -6,7 +6,7 @@
         <img v-show="!hasAvatar" src="https://img11.360buyimg.com/jdphoto/s120x120_jfs/t21160/90/706848746/2813/d1060df5/5b163ef9N4a3d7aa6.png">
         <div class="name" v-if="userinfo.username">
           <div>
-            <span class="">{{name? name: '暂无'}}</span>
+            <span class="">{{userinfo.name? name: '暂无'}}</span>
           </div>
           <div>
             <span class="">{{userinfo.username? userinfo.username:'暂无'}}</span>

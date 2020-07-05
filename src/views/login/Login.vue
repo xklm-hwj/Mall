@@ -7,7 +7,7 @@
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot='center'>用户登录</div>
     </navbar>
-    <form class="form">
+    <form  class="form">
       <div class="input">
         <input type="text" v-model="user.username" placeholder="手机号/用户名/邮箱" @input="inputClick">
         <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
@@ -20,9 +20,9 @@
       </div>
       <div class="sign">
         <span>短信验证码登录</span>
-        <span>免费注册</span>
+        <span @click="toSignIn">免费注册</span>
       </div>
-      <div class="button" :class="{'cleck-fail': !usernameCheck}" @click="login">
+      <div  class="button" :class="{'cleck-fail': !usernameCheck}" @click="login">
         登录
       </div>
     </form>
@@ -40,7 +40,7 @@ export default {
       },
       wHeight: 0,
       hidden: true,
-      passwordType: true
+      passwordType: true,
     }
   },
   components: {
@@ -61,16 +61,37 @@ export default {
   },
   methods: {
     login() {
+      // if(this.usernameCheck) {
+      //   this.$store.dispatch('user/login', this.user).then(response => {
+      //     console.log(response)
+      //     Toast.success('登录成功')
+      //     setTimeout(() => {
+      //       this.$router.back(-1)
+      //     }, 1000);
+      //   })
+      // }
       if(this.usernameCheck) {
-        this.$store.dispatch('user/login', this.user).then(response => {
-          console.log(response)
-          Toast.success('登录成功')
-          setTimeout(() => {
-            this.$store.dispatch('user/getUserinfo').then(res => {
-              this.$router.back(-1)
-            })
-          }, 1000);
+        let userList = JSON.parse(localStorage.getItem('userList'))?JSON.parse(localStorage.getItem('userList')):[]
+        console.log(userList)
+        console.log(this.user)
+        let hasUser = false
+        userList.forEach(item => {
+          if(item.username == this.user.username) {
+            hasUser = true
+            if(item.password == this.user.password) {
+              Toast.success('登录成功')
+              this.$store.commit('user/setUserinfo',item)
+              localStorage.setItem('userinfo',JSON.stringify(item))
+              setTimeout(() => {
+                this.$router.push('/body/profile')
+              }, 1000);
+            }else {
+              Toast.fail('密码错误')
+            }
+          }
         })
+        if(!hasUser) Toast.fail('账号不存在，请注册')
+
       }
     },
     inputClick() {
@@ -83,6 +104,9 @@ export default {
     },
     callBack() {
       this.$router.back(-1)
+    },
+    toSignIn() {
+      this.$router.push("/signin")
     }
   }
 }
@@ -136,7 +160,6 @@ export default {
         //   color: #351717;
         //   background-color: rgb(124, 37, 37)!important;
         // }
-       
       }
       .sign {
         display: flex;
@@ -156,8 +179,7 @@ export default {
       }
     }
   }
- 
   .cleck-fail {
-    background-color: red !important;
+    background-color: rgba($color: red, $alpha: .3) !important;
   }
 </style>

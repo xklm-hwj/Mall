@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       user: {},
-      isLogin: getToken()
+      isLogin: true
     }
   },
   computed: {
@@ -91,13 +91,13 @@ export default {
     // console.log(this.user)
   },
   activated() {
-    if(this.isLogin){
-      setTimeout(() => {
-        this.$store.dispatch('user/getUserinfo').then(res => {
-          this.user = res
-        })
-      })
-    }
+    setTimeout(() => {
+      // this.$store.dispatch('user/getUserinfo').then(res => {
+      //   this.user = res
+      // })
+      this.user = this.$store.getters.userinfo
+      console.log(this.user)
+    })
   }
 }
 </script>

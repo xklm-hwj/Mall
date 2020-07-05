@@ -26,6 +26,7 @@
       <van-goods-action-button type="danger" text="立即购买" @click="toBuy"/>
     </van-goods-action>
     <div class="cart" v-show="isShow">
+      <div class="iconfont icon" @click="noShow">&#xe677;</div>
       <b-scroll class="content">
         <cart-list v-show="cartList.length>0" :cartList="cartList"/>
         <placeholder-page v-show="cartList.length==0" />
@@ -79,6 +80,10 @@ export default {
     },
     showCart(){
       this.isShow = !this.isShow
+    },
+    noShow() {
+      console.log(111)
+      this.isShow = false
     }
   }
 }
@@ -88,19 +93,35 @@ export default {
 .cart {
   position: fixed;
   bottom: 50px;
-  width: 100%;
+  width: 99%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   height: 300px;
   background-color: #f7f7f7;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  overflow: hidden;
+  .icon{
+    font-size: 12px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0px;
+    top: 0px;
+    width: 30px;
+    height: 30px;
+  }
   .content {
+    overflow: hidden;
     position: absolute;
     width: 95%;
     right: 0;
     left: 0;
     margin: 0 auto;
-    height: 100%;
+    top: 20px;
+    bottom: 20px;
+    // height: 100%;
   }
 }
   // .bottom-bar {

@@ -3,7 +3,7 @@ import {login, getUserinfo} from 'api/user'
 
 const state= {
   token: getToken(),
-  userinfo: {},
+  userinfo: JSON.parse(localStorage.getItem('userinfo'))?JSON.parse(localStorage.getItem('userinfo')):{},
   path: 0
 }
 
