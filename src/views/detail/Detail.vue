@@ -137,7 +137,7 @@ export default {
         id: data.selectedSkuComb.id,
         title: this.goods.title,
         desc: this.goods.desc,
-        price: this.goods.newPrice,
+        price: data.price,
         active: true,
         img,
         sku: {

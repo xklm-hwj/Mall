@@ -20,7 +20,7 @@
     </div>
     </transition>
     <van-sku
-      :value="show"
+      v-model="show"
       :sku="sku"
       :goods="goods"
       @buy-clicked="onBuyClicked"
@@ -111,6 +111,7 @@ export default {
     onAddCartClicked(data) {
       let s1  = data.selectedSkuComb.s1
       data.skuType = this.sku.tree[0].k
+      data.price = (data.selectedSkuComb.price/100).toFixed(2)
       data.value = this.sku.tree[0].v[s1].name
       this.$emit('addCart',data)
       setTimeout(() => {
@@ -155,8 +156,8 @@ export default {
         })
         this.goods.picture = this.good.banner
         this.sku.collection_id = this.good.id
-        const nprice = this.good.newPrice.match(/\d+\.\d+/)[0]*100
-        this.sku.price = nprice/100
+        const nprice = this.good.newPrice.match(/\d+\.\d+/)[0]
+        this.sku.price = nprice
         for(let j =1;j<sizeInfo.length;j++) {
           this.sku.tree[this.sku.tree.length-1].v.push({
             id: j-1,
@@ -165,7 +166,7 @@ export default {
           this.sku.list.push({
             id: this.good.id+j,
             s1: j-1,
-            price:nprice,
+            price:nprice*100,
             stock_num:110
           })
         }
@@ -181,30 +182,6 @@ export default {
   created() {
     this.$refs.scroll? this.$refs.scroll.refresh():''
   }
-  // deactivated() {
-  //   console.log('-------------------')
-  //    this.updata = true
-  //    this.color= false,
-  //    this.show=false,
-  //    console.log('show:',this.show)
-  //    this.sku = {
-  //       tree: [],
-  //       list: [],
-  //       price: 0, // 默认价格（单位元）
-  //       stock_num: 110, // 商品总库存
-  //       collection_id:'',
-  //       messages: [
-  //         {
-  //           // 商品留言
-  //           datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-  //           multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-  //           name: '留言', // 留言名称
-  //           type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-  //           placeholder: '' // 可选值，占位文本
-  //         }
-  //       ]
-  //     }
-  // }
 }
 </script>
 
@@ -231,7 +208,6 @@ export default {
 }
 .shake {
   animation: hd 0.5s;
-  
 }
 @keyframes hd {
     0% {

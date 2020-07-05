@@ -1,17 +1,17 @@
 <template>
   <div class="cart-list">
     <div v-for="(item,index) of cartList" :key="item.id" class="good">
-      <div class="img" @click="toDetail(item.iid)">
+      <div class="img" >
         <div class="tick">
           <img :class="{active:item.active}" @click="changeActive(item)" src="~assets/img/cart/tick.svg">
         </div>
-        <img :src="item.img" alt="">
+        <img @click="toDetail(item.iid)" :src="item.img" alt="">
       </div>
       <div class="detail">
         <div class="title">{{item.title}}</div>
         <div class="desc">简介：{{item.desc}}</div>
         <div class="price-line">
-          <div class="price">{{item.price}}</div>
+          <div class="price">￥{{item.price}}</div>
           <div class="count">
             <span class="minus" @click="minusCount(index)" :class="{'disable':item.count=='0'}"></span>
             <div class="input-wrap">
@@ -20,10 +20,10 @@
             <span class="plus" @click="plusCount(index)" ></span>
           </div>
         </div>
-         <div class="delect" @click="delect(index)">
-           <div>{{item.sku.key+"："+item.sku.value}}</div>
+        <div class="delect" @click="delect(index)">
+           <div class="sku">{{item.sku.key+"："+item.sku.value}}</div>
            <div>移出购物车</div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -130,13 +130,13 @@ export default {
           font-weight: 700;
           overflow: hidden;
           text-overflow: ellipsis;
-          // white-space: nowrap;
           white-space: nowrap;
         }
         .desc {
-          margin: 5px 0;
+          margin: 3px 0;
           text-overflow: -o-ellipsis-lastline;
           overflow: hidden;
+          height: 33px;
           text-overflow: ellipsis;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -146,7 +146,7 @@ export default {
         .price-line {
           display: flex;
           justify-content: space-between;
-          padding: 5px;
+          padding: 3px;
           vertical-align: middle;
           font-size: 14px;
           .price {
@@ -185,6 +185,16 @@ export default {
           display: flex;
           margin-top: 3px;
           justify-content: space-between;
+          position: absolute;
+          width: 100%;
+          overflow: hidden;
+          bottom: 0px;
+          .sku {
+            width: 65%;
+             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
       }
     }
