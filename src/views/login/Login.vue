@@ -10,6 +10,7 @@
     <form  class="form">
       <div class="input">
         <input type="text" v-model="user.username" placeholder="手机号/用户名/邮箱" @input="inputClick">
+        <!-- <pre>{{user.username}}</pre> -->
         <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
       </div>
       <div class="input">
@@ -32,6 +33,7 @@
 <script>
 import Navbar from 'components/navbar/Navbar'
 import { Toast } from 'vant';
+import { setToken } from 'utils/auth';
 export default {
   name: 'Login',
   data() {
@@ -56,7 +58,13 @@ export default {
       return this.passwordType? 'password':'text'
     },
     usernameCheck() {
-      return this.user.username&&this.user.username.length>6 && !isNaN(this.user.username*1)&&this.user.password
+      const username = this.user.username?this.user.username.replace(/\s+/g,''):false
+      const password = this.user.password?this.user.password.trim():false
+      // this.user.username&&this.user.password&& this.user.username.replace(/\s/,'').length>=6 && !isNaN( this.user.username.replace(/\s+/,'')*1)&&this.user.password.replace(" ",'').length>=6
+      return  username&&password&& username.length>=6 && !isNaN(username*1)&&password.length>=6
+    },
+    name() {
+      return this.user.username?this.user.username.replace(/\s+/g,''):''
     }
   },
   methods: {
@@ -72,8 +80,6 @@ export default {
       // }
       if(this.usernameCheck) {
         let userList = JSON.parse(localStorage.getItem('userList'))?JSON.parse(localStorage.getItem('userList')):[]
-        console.log(userList)
-        console.log(this.user)
         let hasUser = false
         userList.forEach(item => {
           if(item.username == this.user.username) {
@@ -81,6 +87,8 @@ export default {
             if(item.password == this.user.password) {
               Toast.success('登录成功')
               this.$store.commit('user/setUserinfo',item)
+              let scret = this.$md5('hwj-md5' + item.username)
+              setToken(scret)
               localStorage.setItem('userinfo',JSON.stringify(item))
               setTimeout(() => {
                 this.$router.push('/body/profile')
@@ -95,6 +103,7 @@ export default {
       }
     },
     inputClick() {
+      console.log(this.user.username)
       console.log(isNaN(this.user.username*1))
     },
     checkout(){

@@ -11,7 +11,7 @@
 
 <script>
 import Vue from 'vue';
-import { SubmitBar,Checkbox} from 'vant';
+import { SubmitBar,Checkbox,Toast} from 'vant';
 import {getToken} from 'utils/auth';
 
 Vue.use(Checkbox);
@@ -49,6 +49,9 @@ export default {
       return isAll
     }
   },
+  activated() {
+    this.isLogin = getToken()
+  },
   props: {
     cartList: {
       type: Array,
@@ -73,7 +76,7 @@ export default {
       this.$router.push('/login')
     },
     onSubmit(){
-
+      Toast.fail('支付功能未开发！')
     }
   }
 }

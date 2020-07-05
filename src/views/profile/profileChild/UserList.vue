@@ -1,5 +1,5 @@
 <template>
-  <div class="order">
+  <div class="order" @click="onClick()">
     <div v-for="(item,index) of orderList" :key="index" class="list">
       <div class="img" :class="item.img"></div>
       <div class="title">{{item.title}}</div>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import {Toast} from 'vant'
 export default {
   name: 'UserList',
   props: {
@@ -16,6 +17,11 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    onClick(){
+      Toast.fail('尚未开发')
     }
   }
 }

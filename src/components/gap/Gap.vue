@@ -24,6 +24,7 @@ export default {
     box-sizing: border-box;
     padding:0 1em;
     background-color: #fff;
+    border-radius: 5px;
   }
   .title::before, .title::after {
     content: '';

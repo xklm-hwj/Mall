@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <div class="avatar">
+      <div class="avatar" @click="toSetting">
         <img v-show="hasAvatar" :src="userinfo.avatar">
         <img v-show="!hasAvatar" src="https://img11.360buyimg.com/jdphoto/s120x120_jfs/t21160/90/706848746/2813/d1060df5/5b163ef9N4a3d7aa6.png">
         <div class="name" v-if="userinfo.username">
@@ -19,14 +19,14 @@
         账户设置
       </div>
       <div class="vip">
-          <span>vip免费试用</span>
+          <span @click="toVip">vip免费试用</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import { Toast } from 'vant';
 export default {
   name: 'UserInfo',
   props: {
@@ -56,6 +56,9 @@ export default {
         path: '/setting',
         query: {user: JSON.stringify(user)}
       })
+    },
+    toVip() {
+      Toast.fail('VIP功能正在策划当中')
     }
   }
 }

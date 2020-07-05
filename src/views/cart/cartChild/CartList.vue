@@ -1,6 +1,6 @@
 <template>
   <div class="cart-list">
-    <div v-for="(item,index) of cartList" :key="item.iid" class="good">
+    <div v-for="(item,index) of cartList" :key="item.id" class="good">
       <div class="img" @click="toDetail(item.iid)">
         <div class="tick">
           <img :class="{active:item.active}" @click="changeActive(item)" src="~assets/img/cart/tick.svg">
@@ -21,7 +21,8 @@
           </div>
         </div>
          <div class="delect" @click="delect(index)">
-            移出购物车
+           <div>{{item.sku.key+"："+item.sku.value}}</div>
+           <div>移出购物车</div>
           </div>
       </div>
     </div>
@@ -133,7 +134,7 @@ export default {
           white-space: nowrap;
         }
         .desc {
-          margin: 10px 0;
+          margin: 5px 0;
           text-overflow: -o-ellipsis-lastline;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -147,7 +148,7 @@ export default {
           justify-content: space-between;
           padding: 5px;
           vertical-align: middle;
-          font-size: 15px;
+          font-size: 14px;
           .price {
             color: red;
           }
@@ -162,7 +163,7 @@ export default {
                 vertical-align: top;
                 text-align: center;
                 font-size: 12px;
-                width: 35px;
+                width: 25px;
               }
             }
             .minus {
@@ -181,9 +182,9 @@ export default {
           }
         }
         .delect {
-          position: absolute;
-          bottom: 2px;
-          right: 10px;
+          display: flex;
+          margin-top: 3px;
+          justify-content: space-between;
         }
       }
     }

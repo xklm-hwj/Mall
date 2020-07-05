@@ -35,6 +35,7 @@ export default {
 <style lang="scss" scoped>
   .good-info {
     padding: 20px 15px;
+    border-bottom: 3px solid #f7f7f7;
   }
   .desc {
     position: relative;

@@ -58,7 +58,7 @@ export default {
       return this.passwordType? 'password':'text'
     },
     check() {
-      return this.user.username&&this.user.username.length>6 && !isNaN(this.user.username*1)&&this.user.password
+      return this.user.username&&this.user.username.trim().length>6 && !isNaN(this.user.username*1)&&this.user.password
     },
     list(){
       return JSON.stringify(this.userList)

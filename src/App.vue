@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive exclude="Detail">
       <router-view/>
     </keep-alive>
   </div>
@@ -30,5 +30,6 @@ export default {
   input:-webkit-autofill {
     box-shadow: 0 0 0 1000px #fff inset;
     -webkit-text-fill-color: #333;
+    font-size: 18px;
 }
 </style>

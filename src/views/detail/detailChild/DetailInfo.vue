@@ -1,5 +1,5 @@
 <template>
-  <div class="info">
+  <div class="info" v-if="Object.keys(goods).length>0">
     <div class="title">
       {{goods.title}}
     </div>
@@ -43,7 +43,7 @@ export default {
 <style lang="scss" scoped>
   .info {
     padding: 10px 5px;
-    border-bottom: 4px solid #eee;
+    border-bottom: 3px solid #eee;
     .title {
       font-size: 16px;
       color: #222;

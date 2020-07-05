@@ -5,6 +5,9 @@ import store from './store'
 import VueLazyLoad from 'vue-lazyload'
 // import('./routerBeforeEach')
 import './routerBeforeEach'
+import md5 from 'js-md5';
+Vue.prototype.$md5 = md5;
+console.log(md5)
 Vue.prototype.$bus = new Vue
 
 Vue.use(VueLazyLoad, {
