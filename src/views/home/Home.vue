@@ -74,6 +74,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.scroll.refresh()
     getBanner().then(res => {
       this.banner = res.data.banner.list
       this.recommend = res.data.recommend.list

@@ -13,7 +13,7 @@
       <div class="toCart" @click="toCart" >前往购物车
         <span class="iconfont">&#xe601;</span>
       </div>
-      <b-scroll class="content">
+      <b-scroll class="content" ref="scroll">
         <cart-list v-show="cartList.length>0" :cartList="cartList"/>
         <placeholder-page v-show="cartList.length==0" />
       </b-scroll>
@@ -178,30 +178,33 @@ export default {
       this.updata = false
     }
   },
-  deactivated() {
-    console.log('-------------------')
-     this.updata = true
-     this.color= false,
-     this.show=false,
-     console.log('show:',this.show)
-     this.sku = {
-        tree: [],
-        list: [],
-        price: 0, // 默认价格（单位元）
-        stock_num: 110, // 商品总库存
-        collection_id:'',
-        messages: [
-          {
-            // 商品留言
-            datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-            multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-            name: '留言', // 留言名称
-            type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-            placeholder: '' // 可选值，占位文本
-          }
-        ]
-      }
+  created() {
+    this.$refs.scroll? this.$refs.scroll.refresh():''
   }
+  // deactivated() {
+  //   console.log('-------------------')
+  //    this.updata = true
+  //    this.color= false,
+  //    this.show=false,
+  //    console.log('show:',this.show)
+  //    this.sku = {
+  //       tree: [],
+  //       list: [],
+  //       price: 0, // 默认价格（单位元）
+  //       stock_num: 110, // 商品总库存
+  //       collection_id:'',
+  //       messages: [
+  //         {
+  //           // 商品留言
+  //           datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
+  //           multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
+  //           name: '留言', // 留言名称
+  //           type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
+  //           placeholder: '' // 可选值，占位文本
+  //         }
+  //       ]
+  //     }
+  // }
 }
 </script>
 

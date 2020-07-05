@@ -4,7 +4,7 @@
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot="center">购物车</div>
     </navbar>
-    <b-scroll class="content">
+    <b-scroll class="content" ref="scroll">
       <cart-list v-if="cartList.length>0" :cartList="cartList"/>
       <placeholder-page v-else/>
       <gap>可能你还想要</gap>
@@ -62,7 +62,7 @@ export default {
     }
   },
   activated() {
-    // this.$bus.$on('scrollRefresh')
+    this.$refs.scroll.refresh()
   }
 }
 </script>
