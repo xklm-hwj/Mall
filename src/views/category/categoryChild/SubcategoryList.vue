@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       imgDebounce: debounce(() => {
-        this.$bus.$emit('goodsImgLoad')
+        this.$emit('goodsImgLoad')
       })
     }
   },

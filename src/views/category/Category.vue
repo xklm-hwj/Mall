@@ -6,8 +6,8 @@
         <category-list @checkType="checkType" class="category-left" :categoryList="categoryList"/>
       </BScroll>
       <BScroll class="supcategory" @scroll="scroll" :data='[subcategory,categoryDetailList[categoryDetail]]' ref="scroll" :class="{'show':goodsIsShow}">
-        <subcategory-list :subcategoryList="subcategory" class="category-right" />
-        <tab-control @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
+        <subcategory-list v-if="finishLoad" :subcategoryList="subcategory" class="category-right" />
+        <tab-control v-if="finishLoad" @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
         <goods  :goods="categoryDetailList[categoryDetail]" />
       </BScroll>
       <call-top @click.native="toTop" v-show="callTopIsShow"/>
@@ -50,7 +50,8 @@ export default {
       categoryDetail: 'pop',
       callTopIsShow:false,
       tabValue: 0,
-      goodsIsShow: true
+      goodsIsShow: true,
+      finishLoad: false
     }
   },
   async created() {
@@ -66,8 +67,8 @@ export default {
     this.$bus.$emit('scrollRefresh')
   },
   methods: {
-    aScroll() {
-
+    goodsImgLoad() {
+      this.finishLoad = true
     },
     scroll({x,y}) {
       console.log(y)
