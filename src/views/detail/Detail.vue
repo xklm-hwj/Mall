@@ -31,7 +31,7 @@ import BottomBar from './detailChild/BottomBar'
 import {getDetail,Goods,Shop,GoodsParam} from 'api/detail'
 import {mapGetters} from 'vuex'
 import Vue from 'vue';
-import { Toast } from 'vant';
+import { Toast ,Loading} from 'vant';
 import {getToken} from 'utils/auth'
 import {getCategoryDetail} from 'api/category'
 Vue.use(Toast);
@@ -51,6 +51,7 @@ export default {
       isLogin: getToken(),
       isShow: false,
       cartShake: false,
+      finish:false
     }
   },
   components: {
@@ -85,6 +86,7 @@ export default {
   methods: {
     finishLoad() {
       window.addEventListener("scroll",this.handleScroll);
+      this.finish = true
     },
     handleScroll() {
     //获取滚动时的高度
@@ -105,16 +107,23 @@ export default {
       this.isShow = data
     },
     navClick(index) {
-      this.activeNav = index
-      console.log(index)
-      if(index ==1)
-        document.querySelector("#param").scrollIntoView(true);
-      else if(index ==2)
-       document.querySelector("#comment").scrollIntoView(true);
-      else if(index ==3)
-       document.querySelector("#recomment").scrollIntoView(true);
-      else
-       document.querySelector("#swiper").scrollIntoView(true);
+      if(this.finish) {
+        this.activeNav = index
+        console.log(index)
+        if(index ==1)
+          document.querySelector("#param").scrollIntoView(true);
+        else if(index ==2)
+        document.querySelector("#comment").scrollIntoView(true);
+        else if(index ==3)
+        document.querySelector("#recomment").scrollIntoView(true);
+        else
+        document.querySelector("#swiper").scrollIntoView(true);
+      }else {
+        Toast.loading({
+          message: '加载中...',
+          forbidClick: true,
+        });
+      }
     },
     _getRecommend() {
       getCategoryDetail("10062603",'pop').then(res => {
