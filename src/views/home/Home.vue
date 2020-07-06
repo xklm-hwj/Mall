@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" v-show="finish">
     <search />
     <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
     <b-scroll class="content"  ref="scroll"
@@ -8,7 +8,7 @@
       :bs="bs"
       :data="[goods[sendType].list]">
         <h-swiper :banner="banner" class="swiper"/>
-        <h-recommend :recommend="recommend" />
+        <h-recommend @finishLoad="finishLoad" :recommend="recommend" />
         <h-feature />
         <tab-control :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
         <goods :goods="goods[sendType].list" />
@@ -69,7 +69,8 @@ export default {
       },
       callTopIsShow: false,
       navIsShow: false,
-      tabValue: 0
+      tabValue: 0.,
+      finish:false
     }
   },
   computed: {
@@ -78,7 +79,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.scroll.refresh()
+    this.$refs.scroll&&this.$refs.scroll.refresh()
     getBanner().then(res => {
       // this.banner = res.data.banner.list
       this.recommend = res.data.recommend.list
@@ -88,9 +89,13 @@ export default {
     })
   },
   activated() {
-    this.$refs.scroll.refresh()
+    this.$refs.scroll&&this.$refs.scroll.refresh()
   },
   methods: {
+    finishLoad() {
+      console.log('finish')
+      this.finish = true
+    },
     callTop() {
       this.$refs.scroll.scrollTo(-this.navTop)
     },

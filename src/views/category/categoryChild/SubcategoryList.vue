@@ -26,7 +26,7 @@ export default {
     return {
       imgDebounce: debounce(() => {
         this.$emit('goodsImgLoad')
-      })
+      },100)
     }
   },
   methods: {

@@ -2,21 +2,34 @@
   <div class="recommend">
     <div v-for="item of recommend" :key="item.acm" class="rem-item">
       <a :href="item.link">
-        <img :src="item.image" alt="推荐" >
+        <img :src="item.image" alt="推荐" @load="onload" >
         <div>{{item.title}} </div>
       </a>
     </div>
   </div>
 </template>
 <script>
+import debounce from 'utils/debounce'
 export default {
   name: 'HRecommend',
+  data() {
+    return {
+      finishLoad: debounce(() => {
+        this.$emit('finishLoad')
+      },100)
+    }
+  },
   props: {
     recommend: {
       type: Array,
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    onload() {
+      this.finishLoad()
     }
   }
 }

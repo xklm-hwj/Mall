@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div v-show="finishLoad">
     <search />
     <div class="category">
-      <BScroll class="categoryList" :data='[categoryList]' @scroll="aScroll">
-        <category-list @checkType="checkType" class="category-left" :categoryList="categoryList"/>
+      <BScroll class="categoryList" :data='[categoryList]'>
+        <category-list  @checkType="checkType" class="category-left" :categoryList="categoryList"/>
       </BScroll>
       <BScroll class="supcategory" @scroll="scroll" :data='[subcategory,categoryDetailList[categoryDetail]]' ref="scroll" :class="{'show':goodsIsShow}">
-        <subcategory-list v-if="finishLoad" :subcategoryList="subcategory" class="category-right" />
-        <tab-control v-if="finishLoad" @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
-        <goods  :goods="categoryDetailList[categoryDetail]" />
+        <subcategory-list  @goodsImgLoad="goodsImgLoad" :subcategoryList="subcategory" class="category-right" />
+        <tab-control v-show="finishLoad" @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
+        <goods v-show="finishLoad" :goods="categoryDetailList[categoryDetail]"/>
       </BScroll>
       <call-top @click.native="toTop" v-show="callTopIsShow"/>
     </div>
@@ -68,10 +68,10 @@ export default {
   },
   methods: {
     goodsImgLoad() {
+      console.log(111)
       this.finishLoad = true
     },
     scroll({x,y}) {
-      console.log(y)
       this.callTopIsShow = -y>1200? true:false
     },
     toTop() {
@@ -121,6 +121,7 @@ export default {
 <style lang="scss" scoped>
   .category {
     display: flex;
+    height: 100vh;
   }
   .categoryList {
     width: 21%;
@@ -128,7 +129,6 @@ export default {
     top: 54px;
     bottom: 50px;
     overflow: hidden;
-    border-radius: 15px;
   }
   .supcategory {
     width: 80%;
@@ -140,9 +140,8 @@ export default {
     opacity: 0;
     transition: all .2s;
     .category-right {
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-      border-radius: 15px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
     }
   }
   .show {
