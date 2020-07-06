@@ -46,7 +46,12 @@ export default {
       this.debounce()
     },
     toDetail(iid,item_id) {
-      iid&&this.$router.push('/detail'+iid)
+      iid&&this.$router.push({name:'detail',params: {iid}})
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.$router.go(0)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="recomment">
+  <div class="recomment" v-if="Object.keys(recommendList).length>0">
     <gap>猜你喜欢</gap>
     <goods :goods="recommendList"/>
   </div>

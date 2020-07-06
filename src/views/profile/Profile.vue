@@ -1,7 +1,7 @@
 <template>
  <div id="profile">
   <navbar>
-    <div slot="left" @click="callHome">&#xe609;</div>
+    <div slot="left" @click="callBack">&#xe60a;</div>
     <div slot="center">个人中心</div>
   </navbar>
   <user-info :userinfo="userinfo" class="userinfo" />
@@ -54,8 +54,8 @@ export default {
     }
   },
   methods: {
-    callHome(){
-      this.$router.push('/body')
+    callBack(){
+      this.$router.back(-1)
     }
   }
 }

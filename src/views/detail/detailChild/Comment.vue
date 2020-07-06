@@ -1,7 +1,7 @@
 <template>
   <div class="comment">
     <div v-for="(item,index) of commentInfo" :key="index">
-      <div class="title">
+      <div class="title" v-if="item">
         <div>
           用户评论
         </div>
@@ -9,6 +9,7 @@
           <i class="icon"></i>
         </div>
       </div>
+      <div class="title" v-else>暂无评论</div>
       <div class="user">
         <div class="avatar">
           <img :src="item.user.avatar">

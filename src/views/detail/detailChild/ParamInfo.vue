@@ -8,7 +8,11 @@
     <table class="table">
       <tr v-for="(item,index) of paramInfo.infos" :key="index" class="info">
         <th class="td th" >{{item.key}}</th>
-        <td class="td" >{{item.value}}</td>
+        <td class="td" >
+          <span class="td-content">
+            {{item.value}}
+          </span>
+        </td>
       </tr>
     </table>
   </div>
@@ -41,8 +45,7 @@ export default {
     .size {
       flex: 1;
       border-bottom: 2px solid #f1f1f1;
-      height: 40px;
-      line-height: 40px;
+      line-height: 35px;
       text-align: center;
     }
     .info {
@@ -50,10 +53,14 @@ export default {
     }
     .td {
       flex: 3;
-      height: 40px;
-      line-height: 40px;
       border-bottom: 2px solid #f1f1f1;
       color: red;
+      line-height:35px;
+      border-spacing:0;
+      .td-content {
+        line-height: 20px;
+        display: inline-block;
+      }
     }
     .th {
       flex: 1.5;

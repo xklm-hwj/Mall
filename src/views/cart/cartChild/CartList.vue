@@ -77,6 +77,7 @@ export default {
     },
     toDetail(iid) {
       this.$router.push('/detail'+iid)
+      this.$router.go(0)
     }
   }
 }

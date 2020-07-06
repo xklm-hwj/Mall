@@ -1,19 +1,19 @@
 <template>
-  <div class="detail">
+  <div class="detail" >
     <navbar class="navbar">
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot="center" class="nav-center">
         <div class="nav-item" :class="{'activeNav':activeNav==index}" v-for="(item,index) of ['商品','参数','评论','推荐']" :key="item" @click="navClick(index)">{{item}}</div>
       </div>
     </navbar>
-    <swiper :banner="banner" class="swiper"/>
+    <swiper ref="swiper" id="swiper" :banner="banner" class="swiper"/>
     <detail-info :goods="goods"/>
     <shop-info :shop="shop"/>
-    <good-info :detailInfo="detailInfo"/>
+    <good-info @finishLoad="finishLoad" :detailInfo="detailInfo"/>
     <bottom-bar :paramInfo="paramInfo" :good="goods" @addCart="addCart" @onshow="onshow" @toBuy="toBuy" :isShow='isShow' :cartList="cartList" :cartShake="cartShake"/>
-    <param-info :paramInfo = 'paramInfo'/>
-    <comment :commentInfo="commentInfo" />
-    <recomment :recommendList="recommendList"/>
+    <param-info ref="param" class="gap" id="param" :paramInfo = 'paramInfo'/>
+    <comment ref="comment" class="gap" id="comment" :commentInfo="commentInfo" />
+    <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
   </div>
 </template>
 
@@ -76,12 +76,45 @@ export default {
       'cartList'
     ])
   },
+  destroyed() {
+    document.removeEventListener('scroll', this.handleScroll)
+  },
+  mounted() {
+
+  },
   methods: {
+    finishLoad() {
+      window.addEventListener("scroll",this.handleScroll);
+    },
+    handleScroll() {
+    //获取滚动时的高度
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      let paramHeight = this.$refs.param.$el.offsetTop;
+      let paramComment = this.$refs.comment.$el.offsetTop;
+      let paramRecomment = this.$refs.recomment.$el.offsetTop;
+      if(scrollTop>=0&&paramHeight>scrollTop)
+        this.activeNav = 0
+      if (scrollTop>= paramHeight-100&&scrollTop<paramComment)
+        this.activeNav = 1
+      if (scrollTop >= paramComment-100&&paramRecomment>scrollTop)
+        this.activeNav = 2
+      if (scrollTop>=paramRecomment-100)
+        this.activeNav = 3
+    },
     onshow(data) {
       this.isShow = data
     },
     navClick(index) {
       this.activeNav = index
+      console.log(index)
+      if(index ==1)
+        document.querySelector("#param").scrollIntoView(true);
+      else if(index ==2)
+       document.querySelector("#comment").scrollIntoView(true);
+      else if(index ==3)
+       document.querySelector("#recomment").scrollIntoView(true);
+      else
+       document.querySelector("#swiper").scrollIntoView(true);
     },
     _getRecommend() {
       getCategoryDetail("10062603",'pop').then(res => {
@@ -101,7 +134,7 @@ export default {
         // 获取商品信息
         this.detailInfo = data.detailInfo
         // 2.6.保存参数信息
-        this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule);
+        if(data.itemParams.info&&data.itemParams.rule)this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule);
         // 2.7.保存评论信息
         data.rate.list?this.commentInfo = data.rate.list:''
         this.goods.banner = this.banner[0]
@@ -162,12 +195,27 @@ export default {
       if(!has) list.push(good)
       this.$store.commit('cart/setCartList',list)
       Toast.success('加入购物车成功')
+    },
+    scrollEvent(e) {
+      console.log(111)
+      console.log(e)
     }
+  },
+  beforeRouteLeave:(to,from,next) =>{
+    console.log(to)
+    if(to.name == 'detail') {
+    }
+    next()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.gap::before {
+  content: '';
+  display: block;
+  height: 50px;
+}
   .navbar {
     position: fixed;
     top: 0;

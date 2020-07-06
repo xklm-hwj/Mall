@@ -12,21 +12,34 @@
     <div class="detailImage">
       <div class="key">{{detailInfo.detailImage[0].key}}</div>
       <div v-for="(item,index) of detailInfo.detailImage[0].list" :key="index" class="image">
-        <img :src="item">
+        <img :src="item" @load="imgLoad">
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import debounce from 'utils/debounce'
 export default {
   name: 'GoodInfo',
+  data() {
+    return {
+      finishLoad: debounce(() =>{
+        this.$emit('finishLoad')
+      },1000)
+    }
+  },
   props: {
     detailInfo: {
       type: Object,
       default() {
         return {}
       }
+    }
+  },
+  methods: {
+    imgLoad() {
+      this.finishLoad()
     }
   }
 }

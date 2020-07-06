@@ -53,7 +53,7 @@ export default {
         tree: [],
         list: [],
         price: 0, // 默认价格（单位元）
-        stock_num: 110, // 商品总库存
+        stock_num: 0, // 商品总库存
         collection_id:'',
         messages: [
           {
@@ -148,29 +148,32 @@ export default {
       this.color? Toast.success('收藏成功'):Toast.fail('取消收藏')
     },
     setSku() {
-      let sizeInfo = this.paramInfo.sizes[0][0]
-        this.sku.tree.push({
-          k: sizeInfo[0],
-          k_s: 's1',
-          v: []
-        })
-        this.goods.picture = this.good.banner
-        this.sku.collection_id = this.good.id
-        const nprice = this.good.newPrice.match(/\d+\.\d+/)[0]
-        this.sku.price = nprice
-        for(let j =1;j<sizeInfo.length;j++) {
-          this.sku.tree[this.sku.tree.length-1].v.push({
-            id: j-1,
-            name: sizeInfo[j]
+      this.goods.picture = this.good.banner
+      this.sku.collection_id = this.good.id
+      if(this.paramInfo.sizes){
+        let sizeInfo = this.paramInfo.sizes[0][0]
+        console.log(sizeInfo)
+          this.sku.tree.push({
+            k: sizeInfo[0],
+            k_s: 's1',
+            v: []
           })
-          this.sku.list.push({
-            id: this.good.id+j,
-            s1: j-1,
-            price:nprice*100,
-            stock_num:110
-          })
+          const nprice = this.good.newPrice.match(/\d+\.\d+/)[0]
+          this.sku.price = nprice
+          for(let j =1;j<sizeInfo.length;j++) {
+            this.sku.tree[this.sku.tree.length-1].v.push({
+              id: j-1,
+              name: sizeInfo[j]
+            })
+            this.sku.list.push({
+              id: this.good.id+j,
+              s1: j-1,
+              price:nprice*100,
+              stock_num:110
+            })
+          }
+          this.sku.stock_num = this.sku.list.length*110
         }
-        this.sku.stock_num = this.sku.list.length*110
     }
   },
   watch: {
