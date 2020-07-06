@@ -254,7 +254,6 @@ export default {
   }
   .content {
     border-top: 1px solid #eee;
-    box-shadow: 0px 1px #999;
     overflow: hidden;
     position: absolute;
     width: 95%;
