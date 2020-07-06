@@ -33,7 +33,6 @@ export default {
       return message
     },
     price() {
-      console.log(this.cartList)
       return this.cartList.filter(item => {
         return item.active
       }).reduce((a,b) => {
@@ -43,7 +42,6 @@ export default {
     },
     check() {
       let isAll =  this.cartList.every(item => {
-        console.log(item.active)
         return item.active
       })
       return isAll

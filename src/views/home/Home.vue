@@ -84,10 +84,7 @@ export default {
     })
   },
   activated() {
-    setTimeout(() => {
-      console.log(1111)
-      this.$refs.scroll.refresh()
-    }, 200);
+    this.$refs.scroll.refresh()
   },
   methods: {
     callTop() {

@@ -37,9 +37,6 @@ export default {
       this.$nextTick(() => {
         this.scrollInit()
       })
-      console.log('createScroll:',this.scroll)
-      // this.scroll.refresh()
-      // }, 200);
   },
   methods: {
     scrollInit() {
@@ -53,7 +50,6 @@ export default {
           this.$emit('scroll',position)
         })
         this.scroll.on('pullingUp',() => {
-          console.log("加载更多")
           this.$emit('pullingUpClick')
         })
         this.$bus.$on('scrollRefresh',() => {
@@ -68,7 +64,6 @@ export default {
       this.scroll.scrollTo(0,y,timer)
     },
     refresh() {
-      console.log("scrollRefresh")
        this.scroll && this.scroll.refresh && this.scroll.refresh()
     }
   },

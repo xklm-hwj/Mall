@@ -19,11 +19,5 @@ router.beforeEach((to, from, next) => {
       break;
   }
   store.commit('user/setPath',path)
-  // const token = getToken()
-  // console.log(token)
-  // if(token) {
-  //   console.log(111)
-  //   store.dispatch('user/getUserinfo')
-  // }
   next()
 })

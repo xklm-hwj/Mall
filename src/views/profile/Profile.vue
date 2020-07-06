@@ -9,7 +9,6 @@
   <!-- <user-order class="x-list"></user-order> -->
  </div>
 </template>
-
 <script>
 import userInfo from './profileChild/UserInfo'
 import userList from './profileChild/UserList'

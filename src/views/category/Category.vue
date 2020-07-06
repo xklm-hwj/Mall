@@ -63,7 +63,6 @@ export default {
     this._getCategoryDetail('sell')
   },
   activated() {
-    console.log(222)
     this.$bus.$emit('scrollRefresh')
   },
   methods: {
@@ -107,6 +106,7 @@ export default {
     _getCategoryDetail(type) {
       getCategoryDetail(this.categoryList[this.category_index].miniWallkey,type).then(res => {
         this.categoryDetailList[type] = res
+        console.log()
       })
     }
   }
