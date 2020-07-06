@@ -4,17 +4,19 @@
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot="center" class="nav-center">
         <div class="nav-item" :class="{'activeNav':activeNav==index}" v-for="(item,index) of ['商品','参数','评论','推荐']" :key="item" @click="navClick(index)">{{item}}</div>
-      </div>
+      </div>v
     </navbar>
-    <div class="content">
+    <div class="gap" v-if="noGood">该商品已下架</div>
+    <div class="content" v-else>
       <swiper ref="swiper" id="swiper" :banner="banner" class="swiper"/>
       <detail-info :goods="goods"/>
       <shop-info :shop="shop"/>
       <good-info @finishLoad="finishLoad" :detailInfo="detailInfo"/>
       <param-info ref="param" class="gap" id="param" :paramInfo = 'paramInfo'/>
       <comment ref="comment" class="gap" id="comment" :commentInfo="commentInfo" />
-      <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
+      
     </div>
+    <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
     <bottom-bar :paramInfo="paramInfo" :good="goods" @addCart="addCart" @onshow="onshow" @toBuy="toBuy" :isShow='isShow' :cartList="cartList" :cartShake="cartShake"/>
   </div>
 </template>
@@ -53,7 +55,8 @@ export default {
       isLogin: getToken(),
       isShow: false,
       cartShake: false,
-      finish:false
+      finish:false,
+      noGood:false
     }
   },
   components: {
@@ -150,6 +153,9 @@ export default {
         data.rate.list?this.commentInfo = data.rate.list:''
         this.goods.banner = this.banner[0]
         this.goods.id = this.iid
+      },error => {
+        console.log(error)
+        this.noGood = true
       })
     },
     callBack() {
@@ -222,11 +228,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gap::before {
-  content: '';
-  display: block;
-  height: 50px;
-}
+  .gap {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: center;
+  }
+  .gap::before {
+    content: '';
+    display: block;
+    height: 50px;
+  }
   .navbar {
     position: fixed;
     top: 0;

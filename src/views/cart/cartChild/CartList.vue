@@ -13,7 +13,7 @@
         <div class="price-line">
           <div class="price">￥{{item.price}}</div>
           <div class="count">
-            <span class="minus" @click="minusCount(index)" :class="{'disable':item.count=='0'}"></span>
+            <span class="minus" @click="minusCount(index)" :class="{'disable':item.count=='1'}"></span>
             <div class="input-wrap">
               <input v-model="item.count" class="num" type="tel" @blur="click(index)"/>
             </div>
@@ -31,7 +31,7 @@
 
 <script>
 import {getToken} from 'utils/auth'
-
+import {Toast} from 'vant'
 export default {
   name: 'CartList',
   data() {
@@ -63,7 +63,8 @@ export default {
       this.cartList[index].count = count
     },
     minusCount(index) {
-      if(this.cartList[index].count)this.cartList[index].count--
+      if(this.cartList[index].count-1)this.cartList[index].count--
+      else Toast.fail('该商品一件起售')
     },
     plusCount(index) {
       this.cartList[index].count++
@@ -191,7 +192,7 @@ export default {
           overflow: hidden;
           bottom: 0px;
           .sku {
-            width: 65%;
+            width: 60%;
              overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

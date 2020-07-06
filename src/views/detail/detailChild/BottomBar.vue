@@ -3,13 +3,15 @@
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" @click="chat" text="客服" color="#07c160" />
       <van-goods-action-icon icon="cart-o" :badge="cartList.length" @click="showCart" text="购物车" />
-      <van-goods-action-icon :icon="color?'star':'star-o'" :text="color?'已收藏':'收藏'" :color="color?'#ff5000':''" @click="onStar"/>
+      <van-goods-action-icon :icon="color?'star':'star-o'" :text="starText" :color="color?'#ff5000':''" @click="onStar"/>
       <van-goods-action-button type="warning" text="加入购物车" @click="addCart"/>
       <van-goods-action-button type="danger" text="立即购买" @click="toBuy"/>
     </van-goods-action>
     <transition name="change">
-      <div class="cart" v-show="isShow" :class="{'shake':cartShake}">
-      <div class="icon" @click="noShow"></div>
+    <div class="cart" v-show="isShow" :class="{'shake':cartShake}">
+      <div class="gad" @click="noShow"></div>
+      <div class="cart-wrap">
+        <div class="icon" @click="noShow"></div>
       <div class="toCart" @click="toCart" >前往购物车
         <span class="iconfont">&#xe601;</span>
       </div>
@@ -17,6 +19,7 @@
         <cart-list v-show="cartList.length>0" :cartList="cartList"/>
         <placeholder-page v-show="cartList.length==0" />
       </b-scroll>
+      </div>
     </div>
     </transition>
     <van-sku
@@ -128,10 +131,12 @@ export default {
       Toast.success('联系客服qq:1289323257')
     },
     addCart() {
-      this.show = true
+      if(!this.good.title) Toast.fail('商品已下架')
+      else this.show = true
     },
     toBuy() {
-      this.show = true
+      if(!this.good.title) Toast.fail('商品已下架')
+      else this.show = true
     },
     showCart(){
       let data = !this.isShow
@@ -144,8 +149,11 @@ export default {
       this.$router.push('/body/cart')
     },
     onStar() {
-      this.color = !this.color
-      this.color? Toast.success('收藏成功'):Toast.fail('取消收藏')
+      if(!this.good.title) Toast.fail('商品已下架')
+      else{
+        this.color = !this.color
+        this.color? Toast.success('收藏成功'):Toast.fail('取消收藏')
+      }
     },
     setSku() {
       this.goods.picture = this.good.banner
@@ -180,6 +188,12 @@ export default {
     good() {
       if(this.updata) this.setSku();
       this.updata = false
+    }
+  },
+  computed: {
+    starText() {
+      console.log(this.good)
+      return this.good.title? (this.color?"已收藏":"收藏"):"收藏"
     }
   },
   created() {
@@ -225,21 +239,32 @@ export default {
 }
 .cart {
   position: fixed;
+  z-index: 1000;
   bottom: 50px;
   width: 99%;
   left: 0;
   right: 0;
   margin: 0 auto;
-  height: 300px;
-  background-color: #f7f7f7;
+  height: 100vh;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  .gad {
+    height: 300px;
+    background-color: transparent;
+  }
+  .cart-wrap {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+  }
   .icon{
     font-size: 12px;
     position: absolute;
     right: 0px;
     left: 0;
-    top: 5px;
+    top: 305px;
     margin: 0 auto;
     width: 30px;
     height: 5px;
@@ -260,7 +285,7 @@ export default {
     right: 0;
     left: 0;
     margin: 0 auto;
-    top: 20px;
+    top: 320px;
     bottom: 0px;
   }
 }

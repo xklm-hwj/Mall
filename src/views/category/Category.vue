@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     goodsImgLoad() {
-      console.log(111)
       this.finishLoad = true
     },
     scroll({x,y}) {

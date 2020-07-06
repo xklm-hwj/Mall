@@ -16,9 +16,7 @@ export default {
   name: 'Swiper',
   data() {
     return {
-      imgDebounce: debounce(() => {
-        this.$emit('swiperImgLoad')
-      },10)
+     isLoad: true
     }
   },
   props: {
@@ -31,7 +29,8 @@ export default {
   },
   methods: {
     onLoad() {
-      this.imgDebounce()
+      this.isLoad&&this.$emit('swiperImgLoad')
+      this.isLoad = false
     }
   }
 }

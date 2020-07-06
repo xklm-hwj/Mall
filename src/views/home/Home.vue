@@ -1,6 +1,6 @@
 <template>
-  <div class="home" >
-    <search v-show="finish" />
+  <div class="home" v-show="searchLoad">
+    <search @searchImgLoad="searchImgLoad"/>
     <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="finish&&navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
     <b-scroll class="content"  ref="scroll"
       @pullingUpClick="pullingUpClick"
@@ -71,7 +71,8 @@ export default {
       callTopIsShow: false,
       navIsShow: false,
       tabValue: 0.,
-      finish:false
+      finish:false,
+      searchLoad:false
     }
   },
   computed: {
@@ -94,6 +95,9 @@ export default {
     this.$refs.scroll&&this.$refs.scroll.refresh()
   },
   methods: {
+    searchImgLoad() {
+      this.searchLoad = true
+    },
     swiperImgLoad() {
       console.log('finish')
       this.finish = true

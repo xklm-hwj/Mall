@@ -1,6 +1,6 @@
 <template>
    <form action="/" class="search">
-   <img src="../../assets/image/bg.jpg" alt="" class="img">
+   <img src="../../assets/image/bg.jpg" alt="" class="img" @load="onLoad">
       <van-search
         v-model="value"
         placeholder="别搜了，没有接口~~~"
@@ -17,7 +17,14 @@ export default {
   name: 'Search',
   data() {
     return {
-      value: ''
+      value: '',
+      isLoad: true
+    }
+  },
+  methods: {
+    onLoad() {
+      this.isLoad&&this.$emit('searchImgLoad')
+      this.isLoad = false
     }
   }
 }

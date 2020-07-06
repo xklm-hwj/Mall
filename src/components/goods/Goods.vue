@@ -73,6 +73,7 @@ export default {
       img {
         width: 100%;
         border-radius: 5px;
+        pointer-events: none;
       }
       .title {
         margin: 2px;
