@@ -45,14 +45,20 @@ export default {
     background-color: #fff;
     margin: 0 10px;
     .nav-item {
+      position: relative;
       flex: 1;
       height: 100%;
+      line-height: 40px;
     }
     .underline::after {
       content: '';
       display: block;
+      position: absolute;
       width: 40%;
-      margin: 8px auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 4px auto;
       height: 3px;
       background-color: red;
     }

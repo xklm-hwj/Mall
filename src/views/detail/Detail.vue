@@ -6,14 +6,16 @@
         <div class="nav-item" :class="{'activeNav':activeNav==index}" v-for="(item,index) of ['商品','参数','评论','推荐']" :key="item" @click="navClick(index)">{{item}}</div>
       </div>
     </navbar>
-    <swiper ref="swiper" id="swiper" :banner="banner" class="swiper"/>
-    <detail-info :goods="goods"/>
-    <shop-info :shop="shop"/>
-    <good-info @finishLoad="finishLoad" :detailInfo="detailInfo"/>
+    <div class="content">
+      <swiper ref="swiper" id="swiper" :banner="banner" class="swiper"/>
+      <detail-info :goods="goods"/>
+      <shop-info :shop="shop"/>
+      <good-info @finishLoad="finishLoad" :detailInfo="detailInfo"/>
+      <param-info ref="param" class="gap" id="param" :paramInfo = 'paramInfo'/>
+      <comment ref="comment" class="gap" id="comment" :commentInfo="commentInfo" />
+      <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
+    </div>
     <bottom-bar :paramInfo="paramInfo" :good="goods" @addCart="addCart" @onshow="onshow" @toBuy="toBuy" :isShow='isShow' :cartList="cartList" :cartShake="cartShake"/>
-    <param-info ref="param" class="gap" id="param" :paramInfo = 'paramInfo'/>
-    <comment ref="comment" class="gap" id="comment" :commentInfo="commentInfo" />
-    <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
   </div>
 </template>
 

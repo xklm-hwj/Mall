@@ -1,22 +1,21 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" @click="onClick">
     <div v-for="item of recommend" :key="item.acm" class="rem-item">
-      <a :href="item.link">
         <img :src="item.image" alt="推荐" @load="onload" >
         <div>{{item.title}} </div>
-      </a>
     </div>
   </div>
 </template>
 <script>
 import debounce from 'utils/debounce'
+import {Toast} from 'vant'
 export default {
   name: 'HRecommend',
   data() {
     return {
       finishLoad: debounce(() => {
         this.$emit('finishLoad')
-      },100)
+      },10)
     }
   },
   props: {
@@ -30,6 +29,12 @@ export default {
   methods: {
     onload() {
       this.finishLoad()
+    },
+    onClick() {
+      Toast({
+        message: '先看看其他吧~~',
+        icon: 'like-o',
+      });
     }
   }
 }
@@ -39,12 +44,12 @@ export default {
   .recommend {
     display: flex;
     justify-content: space-between;
-    margin: 20px 10px;
+    margin: 20px 15px;
     text-align: center;
     margin-top: 8px;
-    color: #fff;
     background-color: #fff;
     padding: 10px 0;
+    border-radius: 15px;
     a {
       color: rgb(139, 160, 172);
     }
@@ -52,7 +57,7 @@ export default {
       flex: 1;
       margin: 0 10px;
       img {
-        width: 90%;
+        width: 70%;
         border-radius: 50%;
       }
     }

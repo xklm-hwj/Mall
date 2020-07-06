@@ -1,17 +1,17 @@
 <template>
-  <div class="home" v-show="finish">
-    <search />
-    <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+  <div class="home" >
+    <search v-show="finish" />
+    <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="finish&&navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
     <b-scroll class="content"  ref="scroll"
       @pullingUpClick="pullingUpClick"
       @scroll="scroll"
       :bs="bs"
       :data="[goods[sendType].list]">
-        <h-swiper :banner="banner" class="swiper"/>
-        <h-recommend @finishLoad="finishLoad" :recommend="recommend" />
-        <h-feature />
-        <tab-control :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
-        <goods :goods="goods[sendType].list" />
+        <h-swiper @swiperImgLoad="swiperImgLoad" :banner="banner" class="swiper"/>
+        <h-recommend v-show="finish" :recommend="recommend" />
+        <h-feature v-show="finish" />
+        <tab-control v-show="finish" :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+        <goods v-show="finish" :goods="goods[sendType].list" />
     </b-scroll>
     <call-top v-show="callTopIsShow" @click.native="callTop"/>
   </div>
@@ -42,12 +42,13 @@ export default {
   },
   data() {
     return {
-      banner:[
-        {image:require("assets/image/swiper1.jpg")},
-        {image:require("assets/image/swiper2.jpg")},
-        {image:require("assets/image/swiper3.jpg")},
+      banner:[],
+      recommend: [
+        {image:require('../../assets/image/icon4.png'),title:"十点抢卷"},
+        {image:require('../../assets/image/icon2.png'),title:"特卖服装"},
+        {image:require('../../assets/image/icon6.png'),title:"会员专享"},
+        {image:require('../../assets/image/icon1.png'),title:"超市上新"},
       ],
-      recommend: [],
       goods: {
         'pop':{
           page: 1,
@@ -81,8 +82,9 @@ export default {
   mounted() {
     this.$refs.scroll&&this.$refs.scroll.refresh()
     getBanner().then(res => {
-      // this.banner = res.data.banner.list
-      this.recommend = res.data.recommend.list
+      this.banner = res.data.banner.list.reverse()
+      this.banner.splice(3,1)
+      // this.recommend = res.data.recommend.list
       this.getGoodList('pop')
       this.getGoodList('sell')
       this.getGoodList('new')
@@ -92,7 +94,7 @@ export default {
     this.$refs.scroll&&this.$refs.scroll.refresh()
   },
   methods: {
-    finishLoad() {
+    swiperImgLoad() {
       console.log('finish')
       this.finish = true
     },
@@ -137,7 +139,7 @@ export default {
     .tab-con {
       position: absolute;
       width: 100%;
-      top: 54px;
+      top: 50px;
       margin: 0
     }
   }
@@ -150,5 +152,7 @@ export default {
   }
   .swiper {
     width: 92%;
+    height: 155px;
+    border-radius: 15px;
   }
 </style>

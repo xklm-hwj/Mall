@@ -10,7 +10,10 @@ export default {
   name: 'HFeature',
   methods: {
     onRecommend() {
-      Toast.fail('我只是一张图片！')
+      Toast({
+        message: '我只是一张图片~~',
+        icon: 'like-o',
+      });
     }
   }
 }

@@ -42,7 +42,7 @@ export default {
     },
     check() {
       let isAll =  this.cartList.every(item => {
-        return item.active
+        return item.active&&item.count!=0
       })
       return isAll
     }

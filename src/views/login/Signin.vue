@@ -2,11 +2,11 @@
   <div class="signin" :style="style">
     <navbar>
       <div slot="left" @click="callBack">&#xe60a;</div>
-      <div slot='center'>用户登录</div>
+      <div slot='center'>用户注册</div>
     </navbar>
      <form class="form">
       <div class="input">
-        账号：<input type="text" v-model="user.username" placeholder="账号" @input="inputClick">
+        账号：<input type="text" v-model="user.username" placeholder="请输入数字" @input="inputClick">
         <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
       </div>
       <div class="input">

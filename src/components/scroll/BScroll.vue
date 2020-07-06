@@ -16,7 +16,7 @@ export default {
       default() {
         return {
           probeType: 3,
-          pullUpLoad: false
+          pullUpLoad: false,
         }
       }
     },
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       scroll: {},
+     
     }
   },
   mounted() {

@@ -3,7 +3,7 @@
     <div v-for="(item,index) of cartList" :key="item.id" class="good">
       <div class="img" >
         <div class="tick">
-          <img :class="{active:item.active}" @click="changeActive(item)" src="~assets/img/cart/tick.svg">
+          <img :class="{active:item.active&&item.count>0}" @click="changeActive(item)" src="~assets/img/cart/tick.svg">
         </div>
         <img @click="toDetail(item.iid)" :src="item.img" alt="">
       </div>

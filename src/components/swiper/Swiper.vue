@@ -1,26 +1,37 @@
 <template>
   <van-swipe class="my-swipe" :autoplay="3000" loop indicator-color="white">
     <van-swipe-item v-for="(item,index) of banner" :key="item.acm||index">
-      <img class="swipe-img" :src="item.image||item" alt="">
+      <img class="swipe-img" :src="item.image||item" @load="onLoad">
     </van-swipe-item>
   </van-swipe>
 </template>
 
 <script>
 import Vue from 'vue';
-import { Search ,Swipe, SwipeItem } from 'vant';
-
+import {  Swipe, SwipeItem } from 'vant';
+import debounce from 'utils/debounce'
 Vue.use(Swipe);
 Vue.use(SwipeItem);
-Vue.use(Search);
 export default {
   name: 'Swiper',
+  data() {
+    return {
+      imgDebounce: debounce(() => {
+        this.$emit('swiperImgLoad')
+      },10)
+    }
+  },
   props: {
     banner: {
       type: Array,
       default() {
         return []
       }
+    }
+  },
+  methods: {
+    onLoad() {
+      this.imgDebounce()
     }
   }
 }
