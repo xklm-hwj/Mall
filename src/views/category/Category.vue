@@ -7,8 +7,8 @@
       </BScroll>
       <BScroll class="supcategory" @scroll="scroll" :data='[subcategory,categoryDetailList[categoryDetail]]' ref="scroll" :class="{'show':goodsIsShow}">
         <subcategory-list  @goodsImgLoad="goodsImgLoad" :subcategoryList="subcategory" class="category-right" />
-        <tab-control v-show="finishLoad" @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
-        <goods v-show="finishLoad" :goods="categoryDetailList[categoryDetail]"/>
+        <tab-control v-show="finishLoad"  @tabIndex="tabIndex" :value='tabValue' :navList="['综合','新品','销量']"/>
+        <goods   :goods="categoryDetailList[categoryDetail]"/>
       </BScroll>
       <call-top @click.native="toTop" v-show="callTopIsShow"/>
     </div>
@@ -74,7 +74,7 @@ export default {
       this.callTopIsShow = -y>1200? true:false
     },
     toTop() {
-      this.$refs.scroll.scrollTo(-10,200)
+      this.$refs.scroll.scrollTo(10,200)
     },
     tabIndex(index) {
       this.tabValue = index
@@ -101,6 +101,7 @@ export default {
       this.category_index = index
       this.tabValue = 0
       this.categoryDetail = 'pop'
+      this.toTop()
       this._getSubcategory()
       this._getCategoryDetail('pop')
       setTimeout(() => {
@@ -120,7 +121,7 @@ export default {
 <style lang="scss" scoped>
   .category {
     display: flex;
-    height: 100vh;
+    overflow: hidden;
   }
   .categoryList {
     width: 21%;

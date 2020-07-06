@@ -40,9 +40,9 @@ export default {
     height: 50px;
   }
   .van-search {
-    position: absolute;
+    position: fixed;
     width: 100%;
-    top: 0;
+    top: 0px;
     background-color: transparent;
   }
   .van-search__content {

@@ -15,7 +15,7 @@ export default {
     return {
       finishLoad: debounce(() => {
         this.$emit('finishLoad')
-      },10)
+      },80)
     }
   },
   props: {

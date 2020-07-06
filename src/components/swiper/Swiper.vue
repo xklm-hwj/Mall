@@ -1,9 +1,9 @@
 <template>
-  <van-swipe class="my-swipe" :autoplay="3000" loop indicator-color="white">
-    <van-swipe-item v-for="(item,index) of banner" :key="item.acm||index">
-      <img class="swipe-img" :src="item.image||item" @load="onLoad">
-    </van-swipe-item>
-  </van-swipe>
+    <van-swipe class="my-swipe" :autoplay="3000" loop indicator-color="white">
+      <van-swipe-item v-for="(item,index) of banner" :key="item.acm||index">
+        <img class="swipe-img" :src="item.image||item" @load="onLoad">
+      </van-swipe-item>
+    </van-swipe>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
     return {
       imgDebounce: debounce(() => {
         this.$emit('swiperImgLoad')
-      },10)
+      })
     }
   },
   props: {
@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     onLoad() {
+      console.log(111)
       this.imgDebounce()
     }
   }

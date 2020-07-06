@@ -1,19 +1,19 @@
 <template>
-  <div class="home" v-show="searchLoad">
+  <div class="home">
     <search @searchImgLoad="searchImgLoad"/>
-    <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="finish&&navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+    <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
     <b-scroll class="content"  ref="scroll"
       @pullingUpClick="pullingUpClick"
       @scroll="scroll"
       :bs="bs"
       :data="[goods[sendType].list]">
         <h-swiper @swiperImgLoad="swiperImgLoad" :banner="banner" class="swiper"/>
-        <h-recommend v-show="finish" :recommend="recommend" />
-        <h-feature v-show="finish" />
-        <tab-control v-show="finish" :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
-        <goods v-show="finish" :goods="goods[sendType].list" />
+        <h-recommend :recommend="recommend" />
+        <h-feature  />
+        <tab-control  :navList="['流行','新款','精选']" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+        <goods  :goods="goods[sendType].list" />
     </b-scroll>
-    <call-top v-show="callTopIsShow" @click.native="callTop"/>
+    <call-top  @click.native="callTop"/>
   </div>
 </template>
 

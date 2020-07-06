@@ -1,5 +1,5 @@
 <template>
-  <div class="subcategory-list">
+  <div class="subcategory-list" v-if="subcategoryList.length>0">
     <div class="subcategory-item" v-for="item of subcategoryList" :key="item.acm">
         <img :src="item.image" :alt="item.title"  @load="onload">
         <div>{{item.title}}</div>
@@ -24,7 +24,7 @@ export default {
     return {
       imgDebounce: debounce(() => {
         this.$emit('goodsImgLoad')
-      },200)
+      },100)
     }
   },
   methods: {
@@ -38,9 +38,8 @@ export default {
 <style lang="scss" scoped>
   .subcategory-list {
     background-color: #fff;
-    margin: 0 10px;
+    margin: 5px 10px;
     margin-bottom: 20px;
-    padding-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
     text-align: center;
