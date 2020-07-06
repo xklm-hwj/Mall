@@ -30,6 +30,9 @@ export default {
     checkType(index) {
       this.active = index
       this.$emit('checkType',index)
+    },
+    getItemTop() {
+
     }
   }
 }
@@ -38,14 +41,16 @@ export default {
 <style lang="scss" scoped>
   .category-list {
     background-color: #f8f8f8;
+    border-radius: 10px;
     font-size: 14px;
     color: #333;
     line-height: 46px;
+    margin: 2px;
     text-indent: .8em;
   }
   .active {
     background-color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     color: red;
     font-weight: 700;
   }

@@ -2,8 +2,8 @@
   <div>
     <search />
     <div class="category">
-      <BScroll class="categoryList" :data='[categoryList]'>
-        <category-list @checkType="checkType" class="category-left" :categoryList="categoryList" />
+      <BScroll class="categoryList" :data='[categoryList]' @scroll="aScroll">
+        <category-list @checkType="checkType" class="category-left" :categoryList="categoryList"/>
       </BScroll>
       <BScroll class="supcategory" @scroll="scroll" :data='[subcategory,categoryDetailList[categoryDetail]]' ref="scroll" :class="{'show':goodsIsShow}">
         <subcategory-list :subcategoryList="subcategory" class="category-right" />
@@ -66,7 +66,11 @@ export default {
     this.$bus.$emit('scrollRefresh')
   },
   methods: {
+    aScroll() {
+
+    },
     scroll({x,y}) {
+      console.log(y)
       this.callTopIsShow = -y>1200? true:false
     },
     toTop() {
@@ -118,11 +122,12 @@ export default {
     display: flex;
   }
   .categoryList {
-    width: 20%;
+    width: 21%;
     position: absolute;
     top: 54px;
     bottom: 50px;
     overflow: hidden;
+    border-radius: 15px;
   }
   .supcategory {
     width: 80%;
@@ -134,9 +139,9 @@ export default {
     opacity: 0;
     transition: all .2s;
     .category-right {
-      margin: 10px 0;
       padding: 10px 0;
       border-bottom: 1px solid #eee;
+      border-radius: 15px;
     }
   }
   .show {

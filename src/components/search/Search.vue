@@ -1,8 +1,9 @@
 <template>
-   <form action="/">
+   <form action="/" class="search">
+   <img src="../../assets/image/bg.jpg" alt="" class="img">
       <van-search
         v-model="value"
-        placeholder="请输入搜索关键词"
+        placeholder="别搜了，没有接口~~~"
       />
     </form>
 </template>
@@ -23,6 +24,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .img {
+    width: 100%;
+    position: relative;
+    z-index: -100;
+  }
+  .search {
+    height: 50px;
+  }
+  .van-search {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: transparent;
+  }
   .van-search__content {
     border-radius: 30px;
   }

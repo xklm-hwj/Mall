@@ -39,6 +39,8 @@ export default {
 
 <style lang="scss" scoped>
   .subcategory-list {
+    background-color: #fff;
+    margin: 0 10px;
     display: flex;
     flex-wrap: wrap;
     text-align: center;

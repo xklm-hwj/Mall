@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <search />
-    <tab-control :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
+    <tab-control class="tab-con" :navList="['流行','新款','精选']" v-show="navIsShow" :value="tabValue" @tabIndex="tabClick" ref="nav"/>
     <b-scroll class="content"  ref="scroll"
       @pullingUpClick="pullingUpClick"
       @scroll="scroll"
@@ -42,7 +42,11 @@ export default {
   },
   data() {
     return {
-      banner:[],
+      banner:[
+        {image:require("assets/image/swiper1.jpg")},
+        {image:require("assets/image/swiper2.jpg")},
+        {image:require("assets/image/swiper3.jpg")},
+      ],
       recommend: [],
       goods: {
         'pop':{
@@ -76,7 +80,7 @@ export default {
   mounted() {
     this.$refs.scroll.refresh()
     getBanner().then(res => {
-      this.banner = res.data.banner.list
+      // this.banner = res.data.banner.list
       this.recommend = res.data.recommend.list
       this.getGoodList('pop')
       this.getGoodList('sell')
@@ -123,6 +127,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .home {
+    height: 100vh;
+    .tab-con {
+      position: absolute;
+      width: 100%;
+      top: 54px;
+      margin: 0
+    }
+  }
   .content {
     width: 100%;
     position: absolute;
@@ -131,6 +144,6 @@ export default {
     overflow: hidden;
   }
   .swiper {
-    width: 90%;
+    width: 92%;
   }
 </style>

@@ -1,12 +1,18 @@
 <template>
-  <div class="fea">
+  <div class="fea" @click="onRecommend">
     <img src="~assets/img/home/recommend_bg.jpg" alt="特色">
   </div>
 </template>
 
 <script>
+import {Toast} from 'vant'
 export default {
-  name: 'HFeature'
+  name: 'HFeature',
+  methods: {
+    onRecommend() {
+      Toast.fail('我只是一张图片！')
+    }
+  }
 }
 </script>
 
@@ -14,9 +20,8 @@ export default {
   .fea {
     position: relative;
     overflow: hidden;
-    width: 95%;
-    margin: 0 auto;
-    left: -1%;
+    
+    margin: 0 10px;
     img {
       width: 100.5%;
     }

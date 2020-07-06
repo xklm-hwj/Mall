@@ -43,6 +43,7 @@ export default {
     font-size: 15px;
     height: 40px;
     background-color: #fff;
+    margin: 0 10px;
     .nav-item {
       flex: 1;
       height: 100%;

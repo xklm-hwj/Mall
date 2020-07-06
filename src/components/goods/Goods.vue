@@ -62,8 +62,10 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 10px 15px;
+    margin: 0px 10px;
+    padding: 0 5px;
     overflow: hidden;
+    background-color: #fff;
     .good {
       width: 48%;
       box-sizing: border-box;
