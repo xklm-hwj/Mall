@@ -20,9 +20,9 @@
             <span class="plus" @click="plusCount(index)" ></span>
           </div>
         </div>
-        <div class="delect" @click="delect(index)">
+        <div class="delect" >
            <div class="sku">{{item.sku.key+"："+item.sku.value}}</div>
-           <div>移出购物车</div>
+           <div @click="delect(index)">移出购物车</div>
         </div>
       </div>
     </div>
