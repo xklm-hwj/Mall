@@ -8,12 +8,12 @@
       <div class="input">
         <span class="option">账号：</span>
         <div class="content">
-          <input type="text" v-model="user.username" placeholder="请输入数字" @input="inputClick">
+          <input type="text" v-model="user.username" placeholder="请输入数字账号" @input="inputClick">
           <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
         </div>
       </div>
       <div class="input">
-        <span class="option">密码：</span>
+        <span class="option" placeholder="请输入密码">密码：</span>
         <div class="content">
           <input :type="PType" v-model="user.password" >
           <i class="iconfont icon" v-show="passwordType" @click="passwordType = !passwordType">&#xe704;</i>
@@ -24,7 +24,7 @@
       <div class="input">
         <span class="option">昵称：</span>
         <div class="content">
-          <input type="text" v-model="user.name" >
+          <input type="text" v-model="user.name" placeholder="输入昵称，可选">
           <i class="iconfont icon" v-show="user.name" @click="user.name = ''">&#xe603;</i>
         </div>
       </div>
@@ -35,9 +35,9 @@
           <i class="iconfont icon" v-show="user.phone" @click="user.phone = ''">&#xe603;</i>
         </div>
       </div>
-      <div class="button"  @click="signIn">
-        <div :class="{'cleck-fail': !check}">免费注册</div>
-        <div>手机号快速注册</div>
+      <div class="button"  >
+        <div :class="{'cleck-fail': !check}" @click="signIn">免费注册</div>
+        <div class="cleck-fail" @click="fail">手机号快速注册</div>
       </div>
     </form>
   </div>
@@ -113,6 +113,8 @@ export default {
           },1500)
         }
         console.log(JSON.parse(localStorage.getItem('userList')))
+      }else {
+        // Toast.fail('输入有误！')
       }
     },
     inputClick() {
@@ -120,6 +122,12 @@ export default {
     },
     callBack() {
       this.$router.back(-1)
+    },
+    fail() {
+      Toast({
+        message: '这玩意要买~~',
+        icon: 'like-o',
+      });
     }
   }
 }

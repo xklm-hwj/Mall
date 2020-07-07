@@ -20,7 +20,7 @@
         <i class="iconfont icon ps-icon" v-show="user.password" @click="user.password = ''">&#xe603;</i>
       </div>
       <div class="sign">
-        <span>短信验证码登录</span>
+        <span @click="fail">短信验证码登录</span>
         <span @click="toSignIn">免费注册</span>
       </div>
       <div  class="button" :class="{'cleck-fail':!check}" @click="login">
@@ -116,6 +116,12 @@ export default {
     },
     toSignIn() {
       this.$router.push("/signin")
+    },
+    fail() {
+      Toast({
+        message: '这玩意要买~~',
+        icon: 'like-o',
+      });
     }
   }
 }
