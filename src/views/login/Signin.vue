@@ -4,27 +4,40 @@
       <div slot="left" @click="callBack">&#xe60a;</div>
       <div slot='center'>用户注册</div>
     </navbar>
-     <form class="form">
+     <form class="form" >
       <div class="input">
-        账号：<input type="text" v-model="user.username" placeholder="请输入数字" @input="inputClick">
-        <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
+        <span class="option">账号：</span>
+        <div class="content">
+          <input type="text" v-model="user.username" placeholder="请输入数字" @input="inputClick">
+          <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
+        </div>
       </div>
       <div class="input">
-        密码：<input :type="PType" v-model="user.password" placeholder="请输入登录密码">
-        <i class="iconfont icon" v-show="passwordType" @click="passwordType = !passwordType">&#xe704;</i>
-        <i class="iconfont icon" v-show="!passwordType" @click="passwordType = !passwordType">&#xe705;</i>
-        <i class="iconfont icon ps-icon" v-show="user.password" @click="user.password = ''">&#xe603;</i>
+        <span class="option">密码：</span>
+        <div class="content">
+          <input :type="PType" v-model="user.password" >
+          <i class="iconfont icon" v-show="passwordType" @click="passwordType = !passwordType">&#xe704;</i>
+          <i class="iconfont icon" v-show="!passwordType" @click="passwordType = !passwordType">&#xe705;</i>
+          <i class="iconfont icon ps-icon" v-show="user.password" @click="user.password = ''">&#xe603;</i>
+      </div>
+        </div>
+      <div class="input">
+        <span class="option">昵称：</span>
+        <div class="content">
+          <input type="text" v-model="user.name" >
+          <i class="iconfont icon" v-show="user.name" @click="user.name = ''">&#xe603;</i>
+        </div>
       </div>
       <div class="input">
-        昵称：<input type="text" v-model="user.name" placeholder="昵称">
-        <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
+        <span class="option">手机号：</span>
+        <div class="content">
+          <input type="text" v-model="user.phone"  @input="inputClick" placeholder="请输入正确的手机号">
+          <i class="iconfont icon" v-show="user.phone" @click="user.phone = ''">&#xe603;</i>
+        </div>
       </div>
-      <div class="input">
-        手机号：<input type="text" v-model="user.phone" placeholder="手机号" @input="inputClick">
-        <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
-      </div>
-      <div class="button" :class="{'cleck-fail': !check}" @click="signIn">
-        免费注册
+      <div class="button"  @click="signIn">
+        <div :class="{'cleck-fail': !check}">免费注册</div>
+        <div>手机号快速注册</div>
       </div>
     </form>
   </div>
@@ -58,7 +71,12 @@ export default {
       return this.passwordType? 'password':'text'
     },
     check() {
-      return this.user.username&&this.user.username.trim().length>6 && !isNaN(this.user.username*1)&&this.user.password
+      const username = this.user.username?this.user.username.replace(/\s+/g,''):false
+      const password = this.user.password?this.user.password.trim():false
+      const name = this.user.name?this.user.name.trim():false
+      const phone = this.user.phone?this.user.phone.trim():false
+      // this.user.username&&this.user.password&& this.user.username.replace(/\s/,'').length>=6 && !isNaN( this.user.username.replace(/\s+/,'')*1)&&this.user.password.replace(" ",'').length>=6
+      return  username&&password&&phone&& username.length>=6&& phone.length==11 && !isNaN(username*1) && !isNaN(phone*1)&&password.length>=6
     },
     list(){
       return JSON.stringify(this.userList)
@@ -111,5 +129,56 @@ export default {
  .signin {
    width: 100%;
    height: 100vh;
+ }
+ .form {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 120px;
+    .input {
+      display: flex;
+      margin: 20px 0;
+      .option {
+        width: 20%;
+      }
+      .content {
+        position: relative;
+        flex: 1;
+        border-bottom: 1px solid red;
+        padding-bottom: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        input {
+          width: 90%
+        }
+        .icon {
+          position: absolute;
+          display: inline-block;
+          top: 50%;
+          transform: translate(-10px,-50%);
+          -webkit-transform: translate(-10px,-50%);
+        }
+        .ps-icon {
+          transform: translate(-30px,-50%);
+          -webkit-transform: translate(-30px,-50%);
+        }
+      }
+    }
+    .button {
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+      div {
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
+        background-color: red;
+        margin: 8px 0;
+        border-radius: 15px;
+        font-size: 18px;
+      }
+    }
+    .cleck-fail {
+      background-color: rgba($color: red, $alpha: .5) !important;
+    }
  }
 </style>

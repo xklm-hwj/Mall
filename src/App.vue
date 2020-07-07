@@ -27,9 +27,28 @@ export default {
   table,tr,td {
     border: 0;
   }
+  input::-webkit-input-placeholder {
+    font-size: 16px;
+  }
+  input::-moz-input-placeholder {
+    font-size: 16px;
+  }
+  input::-ms-input-placeholder {
+    font-size: 16px;
+  }
   input:-webkit-autofill {
     box-shadow: 0 0 0 1000px #fff inset;
     -webkit-text-fill-color: #333;
-    font-size: 18px;
-}
+    font-size: 16px;
+  }
+  input:-moz-autofill {
+    box-shadow: 0 0 0 1000px #fff inset;
+    -webkit-text-fill-color: #333;
+    font-size: 16px;
+  }
+  input:-ms-autofill {
+    box-shadow: 0 0 0 1000px #fff inset;
+    -webkit-text-fill-color: #333;
+    font-size: 16px;
+  }
 </style>

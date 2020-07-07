@@ -9,7 +9,7 @@
     </navbar>
     <form  class="form">
       <div class="input">
-        <input type="text" v-model="user.username" placeholder="手机号/用户名/邮箱" @input="inputClick">
+        <input type="text" autofocus="autofocus" v-model="user.username" placeholder="手机号/用户名/邮箱" @input="inputClick">
         <!-- <pre>{{user.username}}</pre> -->
         <i class="iconfont icon" v-show="user.username" @click="user.username = ''">&#xe603;</i>
       </div>
@@ -23,7 +23,7 @@
         <span>短信验证码登录</span>
         <span @click="toSignIn">免费注册</span>
       </div>
-      <div  class="button" :class="{'cleck-fail': !usernameCheck}" @click="login">
+      <div  class="button" :class="{'cleck-fail':!check}" @click="login">
         登录
       </div>
     </form>
@@ -57,7 +57,7 @@ export default {
     PType() {
       return this.passwordType? 'password':'text'
     },
-    usernameCheck() {
+    check() {
       const username = this.user.username?this.user.username.replace(/\s+/g,''):false
       const password = this.user.password?this.user.password.trim():false
       // this.user.username&&this.user.password&& this.user.username.replace(/\s/,'').length>=6 && !isNaN( this.user.username.replace(/\s+/,'')*1)&&this.user.password.replace(" ",'').length>=6
@@ -78,7 +78,7 @@ export default {
       //     }, 1000);
       //   })
       // }
-      if(this.usernameCheck) {
+      if(this.check) {
         let userList = JSON.parse(localStorage.getItem('userList'))?JSON.parse(localStorage.getItem('userList')):[]
         let hasUser = false
         userList.forEach(item => {
@@ -127,16 +127,6 @@ export default {
     position: relative;
     z-index: 100;
     box-sizing: border-box;
-    
-    // .banner {
-    //   width: 30%;
-    //   margin: 0 auto;
-    //   padding: 10px 0;
-    //   .logo-img {
-    //     background: no-repeat url("../../assets/img/profile/banner1.png") 0/100%;
-    //     height: 200px;
-    //   }
-    // }
     .form {
       padding-top: 100px;
       width: 90%;
