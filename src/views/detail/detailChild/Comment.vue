@@ -53,6 +53,7 @@ export default {
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 3px solid #f7f7f7;
+    text-align: left;
     .title {
       font-size: 15px;
       position: relative;
@@ -72,6 +73,7 @@ export default {
       }
     }
     .avatar {
+      text-align: left;
       line-height: 40px;
       height: 40px;
       padding: 10px 0;
@@ -83,10 +85,13 @@ export default {
         margin-right: 10px;
       }
     }
+     
     .content {
       padding: 20px 10px;
+      text-align: left;
     }
     .detail {
+      text-align: left;
       .create {
         margin-right: 10px;
       }

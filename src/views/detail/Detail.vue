@@ -14,7 +14,6 @@
       <good-info @finishLoad="finishLoad" :detailInfo="detailInfo"/>
       <param-info ref="param" class="gap" id="param" :paramInfo = 'paramInfo'/>
       <comment ref="comment" class="gap" id="comment" :commentInfo="commentInfo" />
-      
     </div>
     <recomment ref="recomment" class="gap" id="recomment"  :recommendList="recommendList"/>
     <bottom-bar :paramInfo="paramInfo" :good="goods" @addCart="addCart" @onshow="onshow" @toBuy="toBuy" :isShow='isShow' :cartList="cartList" :cartShake="cartShake"/>
@@ -228,12 +227,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .gap {
-    width: 100%;
-    margin: 0 auto;
-    font-size: 16px;
-    text-align: center;
-  }
   .gap::before {
     content: '';
     display: block;

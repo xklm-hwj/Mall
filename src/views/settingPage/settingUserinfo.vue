@@ -22,28 +22,34 @@
         <div v-show="!user.username" class="account_tip">请点击登录</div>
       </div>
     </div>
-    <div class="address action">
-      <div class="layout">
+     <div class=" action" >
+      <div class="layout" @click="fail">
+        <span class="title">修改账户信息</span>
+        <div class="icon">修改我的账户</div>
+      </div>
+    </div>
+    <div class="address action" >
+      <div class="layout" @click="fail">
         <span class="title">收货管理地址</span>
         <div class="icon">管理我的地址</div>
       </div>
     </div>
-    <div class="action">
-      <div class="outline layout">
+    <div class="action" >
+      <div class="outline layout" @click="fail">
         <span class="title">账户和安全</span>
         <div class="icon">密码实名验证等管理</div>
       </div>
-      <div class="layout">
+      <div class="layout" @click="fail">
         <span class="title">支付密码</span>
         <div class="icon">未设置</div>
       </div>
     </div>
-    <div class="action">
-      <div class="outline layout">
+    <div class="action" >
+      <div class="outline layout" @click="fail">
         <span class="title">联系客服</span>
         <div class="icon">我有疑问</div>
       </div>
-      <div class="layout">
+      <div class="layout" @click="fail">
         <span class="title">关于我们</span>
         <div class="icon">了解我们</div>
       </div>
@@ -57,6 +63,7 @@
 <script>
 import Navbar from 'components/navbar/Navbar'
 import {removeToken,getToken} from 'utils/auth'
+import {Toast} from 'vant'
 export default {
   name: 'UserSetting',
   components: {Navbar},
@@ -84,6 +91,12 @@ export default {
       this.$store.commit('user/setUserinfo',{})
       this.user = {}
       this.$router.push('/login')
+    },
+    fail() {
+      Toast({
+        message: '正在开发,等两天哦~~',
+        icon: 'like-o'
+      })
     }
   },
   created() {

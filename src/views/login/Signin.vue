@@ -13,9 +13,9 @@
         </div>
       </div>
       <div class="input">
-        <span class="option" placeholder="请输入密码">密码：</span>
+        <span class="option" >密码：</span>
         <div class="content">
-          <input :type="PType" v-model="user.password" >
+          <input :type="PType" v-model="user.password" placeholder="请输入密码">
           <i class="iconfont icon" v-show="passwordType" @click="passwordType = !passwordType">&#xe704;</i>
           <i class="iconfont icon" v-show="!passwordType" @click="passwordType = !passwordType">&#xe705;</i>
           <i class="iconfont icon ps-icon" v-show="user.password" @click="user.password = ''">&#xe603;</i>
@@ -147,6 +147,7 @@ export default {
       margin: 20px 0;
       .option {
         width: 20%;
+        font-size: 15px;
       }
       .content {
         position: relative;
@@ -154,9 +155,10 @@ export default {
         border-bottom: 1px solid red;
         padding-bottom: 5px;
         box-sizing: border-box;
-        font-size: 16px;
         input {
-          width: 90%
+          width: 90%;
+          font-size: 16px;
+          margin-left: 3px;
         }
         .icon {
           position: absolute;
@@ -182,7 +184,7 @@ export default {
         background-color: red;
         margin: 8px 0;
         border-radius: 15px;
-        font-size: 18px;
+        font-size: 14px;
       }
     }
     .cleck-fail {

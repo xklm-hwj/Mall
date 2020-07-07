@@ -39,6 +39,7 @@ export default {
   .table {
     width: 100%;
     padding:0 10px;
+    font-size: 12px;
     .sizes {
       display: flex;
     }
@@ -66,7 +67,7 @@ export default {
       flex: 1.5;
       text-align: left;
       text-indent: 1em;
-      font-weight: 700;;
+      font-weight: 700;
       color: #666;
     }
   }
