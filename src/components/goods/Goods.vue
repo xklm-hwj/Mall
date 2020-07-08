@@ -1,15 +1,19 @@
 <template>
   <div class="goods" v-show="show" >
     <div v-for="item of goods" :key="item.acm" class="good" @click="toDetail(item.iid,item.item_id)">
-        <img v-lazy="item.show?item.show.img:item.img?item.img:item.image" :alt="item.title" @load="onload">
-        <div class="title">{{item.title}}</div>
-        <div class="detail" v-show="item.price">
-          <span class="price">{{item.price | setPrice}}</span>
-          <span class="collect">{{item.cfav}}</span>
+      <div class="good-img">
+        <div class="img">
+          <img v-lazy="item.show?item.show.img:item.img?item.img:item.image" :alt="item.title" @load="onload">
         </div>
+      </div>
+      <div class="title">{{item.title}}</div>
+      <div class="detail" v-show="item.price">
+        <span class="price">{{item.price | setPrice}}</span>
+        <span class="collect">{{item.cfav}}</span>
+      </div>
     </div>
   </div>
-</template>
+</template>img
 
 <script>
 import debounce from 'utils/debounce'
@@ -67,13 +71,25 @@ export default {
     overflow: hidden;
     background-color: #fff;
     .good {
-      width: 48%;
-      box-sizing: border-box;
+      width: 46%;
       padding: 10px 5px;
-      img {
+      .good-img {
         width: 100%;
-        border-radius: 5px;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        .img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
         pointer-events: none;
+        img {
+          width: 200px;
+          vertical-align: middle;
+        }
+      }
       }
       .title {
         margin: 2px;

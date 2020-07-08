@@ -248,6 +248,7 @@ export default {
   height: 100vh;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  overflow: hidden;
   .gad {
     height: 300px;
     background-color: transparent;
